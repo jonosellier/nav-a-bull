@@ -2,6 +2,7 @@ const express = require('express');
 const dotenv = require('dotenv');
 const app = express();
 const port = 3000;
+const timestamp = require('log-timestamp');
 
 dotenv.config();
 
@@ -10,10 +11,13 @@ app.set('view engine', 'ejs');
 
 //sets staticContent folder as the root for all static content (ie .../staticContent/app.js is accessed as ./app.js)
 app.use(express.static('staticContent'));
+app.all("*", function(req, resp, next) {
+    console.log("Requested " + req.originalUrl); // do anything you want here
+    next();
+});
 
 //when a GET request is made for the root we render the index.ejs page passing the API key in to be rendered as an HTML string response
 app.get('/', (req, res) => res.render('index', { apikey: process.env.API_KEY }, function(err, html) {
-    console.log(`Key = ${process.env.MAPS_API_KEY}`);
     res.send(html);
 }));
 
