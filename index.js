@@ -1,11 +1,9 @@
 const express = require('express');
+const dotenv = require('dotenv');
 const app = express();
 const port = 3000;
 
-//Appdata object to hold api keys and other as-needed information
-const appData = {
-    apiKey: process.env.MAPS_API_KEY
-};
+dotenv.config();
 
 //EJS view engine (think of it sort of like PHP but it doesnt make you want the sweet release of death)
 app.set('view engine', 'ejs');
@@ -14,7 +12,7 @@ app.set('view engine', 'ejs');
 app.use(express.static('staticContent'));
 
 //when a GET request is made for the root we render the index.ejs page passing the API key in to be rendered as an HTML string response
-app.get('/', (req, res) => res.render('index', { apikey: appData.apiKey }, function(err, html) {
+app.get('/', (req, res) => res.render('index', { apikey: process.env.API_KEY }, function(err, html) {
     console.log(`Key = ${process.env.MAPS_API_KEY}`);
     res.send(html);
 }));
