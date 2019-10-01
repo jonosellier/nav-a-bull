@@ -30,13 +30,20 @@ function initMap() {
     document.getElementById('end').addEventListener('change', onChangeHandler);
 
     var currLoc;
+    var locArray = [];
 
     if (navigator.geolocation) navigator.geolocation.getCurrentPosition(getLatLng);
     else alert("Location permission needed. Please allow and restart the app.");
+    window.setInterval(recenterMap, 5000);
+}
+
+function recenterMap() {
+    map.setCenter(new google.maps.LatLng(locArray[0], locArray[1]));
 }
 
 function getLatLng(position) {
     currLoc = `${position.coords.latitude}, ${position.coords.longitude}`;
+    locArray = [position.coords.latitude, position.coords.longitude];
 }
 
 function calculateAndDisplayRoute(directionsRenderer, directionsService, markerArray, stepDisplay, map) {
