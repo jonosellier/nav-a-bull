@@ -34,7 +34,7 @@ function initMap() {
 
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(getLatLng);
-        geolocation.watchPosition(recenterMap);
+        navigator.geolocation.watchPosition(recenterMap);
     } else alert("Location permission needed. Please allow and restart the app.");
 }
 
