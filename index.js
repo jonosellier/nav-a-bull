@@ -17,7 +17,7 @@ app.all("*", function(req, resp, next) {
 });
 
 //when a GET request is made for the root we render the index.ejs page passing the API key in to be rendered as an HTML string response
-app.get('/', (req, res) => res.render('index', { apikey: process.env.API_KEY }, function(err, html) {
+app.get('/', (req, res) => res.render('index', { apikey: "" + process.env.API_KEY }, function(err, html) {
     res.send(html);
 }));
 

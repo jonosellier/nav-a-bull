@@ -15,7 +15,8 @@
         <div class="panel-puller">
         </div>
             <select id='start'>
-                <option value="" disabled selected hidden>I'm coming from...</option>
+                <option value="myLoc" disabled selected hidden>I'm coming from...</option>
+                <option value="myLoc">Current Location</option>
                 <option value="3H5J+XJ Tampa, Florida">JP</option>
                 <option value="3H7P+HJ Tampa, Florida">MSC</option>
                 <option value="3H6P+G7 Tampa, Florida">ISA</option>
@@ -39,14 +40,14 @@
             <div id="warnings-panel"></div>
         </div>
         <div id="map"></div>
+        <div class="nav-panel" id="nav-holder">
+            <div class="nav-item">Favorites</div>
+            <div class="nav-item">Settings</div>
+            <div class="nav-item">About</div>
+        </div>
     </div>
-    <div class="nav-panel">
-        <ul>
-            <li>Stuff</li>
-            <li>Stuff</li>
-            <li>Stuff</li>
-        </ul>
-    </div>
+    <button class ="fab" onclick="showHideNav()">...<button>
+    <div id="darken-bg" onclick="showHideNav()"></div>
     <script src="https://maps.googleapis.com/maps/api/js?key=<%= apikey %>&callback=initMap">
     </script>
 </body>

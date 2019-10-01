@@ -6,8 +6,8 @@ function initMap() {
 
     // Create a map and center it on Manhattan.
     var map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 13,
-        center: { lat: 40.771, lng: -73.974 },
+        zoom: 15,
+        center: { lat: 28.063325, lng: -82.4135998 },
         gestureHandling: 'greedy',
         disableDefaultUI: true
     });
@@ -28,6 +28,15 @@ function initMap() {
     };
     document.getElementById('start').addEventListener('change', onChangeHandler);
     document.getElementById('end').addEventListener('change', onChangeHandler);
+
+    var currLoc;
+
+    if (navigator.geolocation) navigator.geolocation.getCurrentPosition(getLatLng);
+    else alert("Location permission needed. Please allow and restart the app.");
+}
+
+function getLatLng(position) {
+    currLoc = `${position.coords.latitude}, ${position.coords.longitude}`;
 }
 
 function calculateAndDisplayRoute(directionsRenderer, directionsService, markerArray, stepDisplay, map) {
@@ -39,9 +48,15 @@ function calculateAndDisplayRoute(directionsRenderer, directionsService, markerA
 
     // Retrieve the start and end locations and create a DirectionsRequest using
     // WALKING directions.
+    let startLoc = "";
     if (document.getElementById('start').value == "" || document.getElementById('end').value == "") return;
+    if (document.getElementById('start').value == "myLoc") {
+        if (navigator.geolocation) navigator.geolocation.getCurrentPosition(getLatLng);
+        else alert("Location permission needed. Please allow and restart the app.");
+        startLoc = currLoc;
+    } else startLoc = document.getElementById('start').value;
     directionsService.route({
-        origin: document.getElementById('start').value,
+        origin: startLoc,
         destination: document.getElementById('end').value,
         travelMode: 'WALKING'
     }, function(response, status) {
@@ -80,4 +95,14 @@ function attachInstructionText(stepDisplay, marker, text, map) {
         stepDisplay.open(map, marker);
     });
     document.getElementById("directions-panel").innerHTML += `<p>${text}</p>`;
+}
+
+function showHideNav() {
+    if (document.getElementById("nav-holder").style.left == "-100%") {
+        document.getElementById("nav-holder").style.left = "0";
+        document.getElementById("darken-bg").style.display = "block";
+    } else {
+        document.getElementById("nav-holder").style.left = "-100%";
+        document.getElementById("darken-bg").style.display = "none";
+    }
 }
