@@ -32,14 +32,14 @@ function initMap() {
     var currLoc;
     var locArray = [];
 
-    if (navigator.geolocation) navigator.geolocation.getCurrentPosition(getLatLng);
-    else alert("Location permission needed. Please allow and restart the app.");
-    window.setInterval(recenterMap, 5000);
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(getLatLng);
+        geolocation.watchPosition(recenterMap);
+    } else alert("Location permission needed. Please allow and restart the app.");
 }
 
-function recenterMap() {
-    if (!locArray) locArray = await getLatLng();
-    map.setCenter(new google.maps.LatLng(locArray[0], locArray[1]));
+function recenterMap(pos) {
+    map.setCenter(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
 }
 
 async function getLatLng(position) {
