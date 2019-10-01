@@ -39,7 +39,7 @@ function initMap() {
 }
 
 function recenterMap(pos) {
-    map.setCenter(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
+    map.panTo(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
 }
 
 async function getLatLng(position) {
