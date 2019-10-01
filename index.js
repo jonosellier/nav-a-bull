@@ -1,10 +1,10 @@
-const express = require('express');
 const dotenv = require('dotenv');
+dotenv.config();
+
+const express = require('express');
 const app = express();
 const port = process.env.PORT || 3000;
 const timestamp = require('log-timestamp');
-
-dotenv.config();
 
 //EJS view engine (think of it sort of like PHP but it doesnt make you want the sweet release of death)
 app.set('view engine', 'ejs');
@@ -21,6 +21,7 @@ app.get('/', (req, res) => res.render('index', { apikey: "" + process.env.API_KE
     res.send(html);
 }));
 
+app.get('/test.json', (req, res) => res.send(`{"object": 4, "stuff": NULL}`));
 
 //start the server
 app.listen(port, () => console.log(`Listening on port ${port}!`));
