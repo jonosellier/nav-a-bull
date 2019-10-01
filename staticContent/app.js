@@ -1,3 +1,5 @@
+var map;
+
 function initMap() {
     var markerArray = [];
 
@@ -5,7 +7,7 @@ function initMap() {
     var directionsService = new google.maps.DirectionsService();
 
     // Create a map and center it on Manhattan.
-    var map = new google.maps.Map(document.getElementById('map'), {
+    map = new google.maps.Map(document.getElementById('map'), {
         zoom: 15,
         center: { lat: 28.063325, lng: -82.4135998 },
         gestureHandling: 'greedy',
