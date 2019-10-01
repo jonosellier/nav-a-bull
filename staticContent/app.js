@@ -38,12 +38,13 @@ function initMap() {
 }
 
 function recenterMap() {
+    if (!locArray) locArray = await getLatLng();
     map.setCenter(new google.maps.LatLng(locArray[0], locArray[1]));
 }
 
-function getLatLng(position) {
+async function getLatLng(position) {
     currLoc = `${position.coords.latitude}, ${position.coords.longitude}`;
-    locArray = [position.coords.latitude, position.coords.longitude];
+    return [position.coords.latitude, position.coords.longitude];
 }
 
 function calculateAndDisplayRoute(directionsRenderer, directionsService, markerArray, stepDisplay, map) {
