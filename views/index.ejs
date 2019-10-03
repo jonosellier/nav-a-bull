@@ -9,8 +9,10 @@
     <link rel="stylesheet" href="style.css">
     <title>Directions Service (Complex)</title>
 </head>
-<body>
+<body onload="pageLoaded()">
+    <div id="main-splash" class="splash-screen">Navigate-a-Bull</div>
     <div class="app-content">
+        <button class ="fab right" onclick="recenterMap()">+</button>
         <div class="pull-up-panel">
         <div class="panel-puller">
         </div>
@@ -40,13 +42,13 @@
             <div id="warnings-panel"></div>
         </div>
         <div id="map"></div>
-        <div class="nav-panel" id="nav-holder">
-            <div class="nav-item">Favorites</div>
-            <div class="nav-item">Settings</div>
-            <div class="nav-item">About</div>
+        <div id="nav-panel">
+            <div class="nav-item" data-link="/favorites">Favorites</div>
+            <div class="nav-item" data-link="/settings">Settings</div>
+            <div class="nav-item" data-link="/about">About</div>
         </div>
     </div>
-    <button class ="fab" onclick="showHideNav()">...<button>
+    <button class ="fab left" onclick="showHideNav()">...<button>
     <div id="darken-bg" onclick="showHideNav()"></div>
     <script src="https://maps.googleapis.com/maps/api/js?key=<%= apikey %>&callback=initMap">
     </script>

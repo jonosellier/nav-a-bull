@@ -1,4 +1,13 @@
 var map;
+var curPosCoords;
+var curPosMarker;
+var markerImage = {
+    url: './img/icons/marker.svg',
+    anchor: new google.maps.Point(15, 15),
+    origin: new google.maps.Point(0, 0),
+    size: new google.maps.Size(30, 30),
+    scaledSize: new google.maps.Size(24, 24)
+};
 
 function initMap() {
     var markerArray = [];
@@ -33,20 +42,26 @@ function initMap() {
 
     var currLoc;
     var locArray = [];
-
     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(getLatLng);
-        navigator.geolocation.watchPosition(recenterMap);
+        curPosMarker = new google.maps.Marker({
+            position: new google.maps.LatLng(0, 0),
+            map: map,
+            icon: markerImage
+        });
+        navigator.geolocation.getCurrentPosition(setCurPos);
+        navigator.geolocation.watchPosition(setCurPos);
     } else alert("Location permission needed. Please allow and restart the app.");
+
+    pageLoaded(); //finally call pageLoaded
 }
 
-function recenterMap(pos) {
-    map.panTo(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
+function recenterMap() {
+    map.panTo(curPosCoords);
 }
 
-async function getLatLng(position) {
-    currLoc = `${position.coords.latitude}, ${position.coords.longitude}`;
-    return [position.coords.latitude, position.coords.longitude];
+function setCurPos(pos) {
+    curPosCoords = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
+    curPosMarker.setPosition(curPosCoords);
 }
 
 function calculateAndDisplayRoute(directionsRenderer, directionsService, markerArray, stepDisplay, map) {
@@ -61,9 +76,7 @@ function calculateAndDisplayRoute(directionsRenderer, directionsService, markerA
     let startLoc = "";
     if (document.getElementById('start').value == "" || document.getElementById('end').value == "") return;
     if (document.getElementById('start').value == "myLoc") {
-        if (navigator.geolocation) navigator.geolocation.getCurrentPosition(getLatLng);
-        else alert("Location permission needed. Please allow and restart the app.");
-        startLoc = currLoc;
+        startLoc = curPosCoords;
     } else startLoc = document.getElementById('start').value;
     directionsService.route({
         origin: startLoc,
@@ -108,11 +121,22 @@ function attachInstructionText(stepDisplay, marker, text, map) {
 }
 
 function showHideNav() {
-    if (document.getElementById("nav-holder").style.left == "-100%") {
-        document.getElementById("nav-holder").style.left = "0";
+    if (document.getElementById("nav-panel").style.left == "-100%") {
+        document.getElementById("nav-panel").style.left = "0";
         document.getElementById("darken-bg").style.display = "block";
     } else {
-        document.getElementById("nav-holder").style.left = "-100%";
+        document.getElementById("nav-panel").style.left = "-100%";
         document.getElementById("darken-bg").style.display = "none";
     }
+}
+
+function pageLoaded() {
+    showHideNav();
+    const splash = document.getElementsByClassName('splash-screen');
+    window.setTimeout(function() {
+        splash[0].style.opacity = "0";
+    }, 1000);
+    window.setTimeout(function() {
+        splash[0].style.display = "none";
+    }, 1500);
 }
