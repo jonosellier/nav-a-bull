@@ -1,13 +1,14 @@
 var map;
 var curPosCoords;
 var curPosMarker;
-var markerImage = {
-    url: './img/icons/marker.svg',
-    anchor: new google.maps.Point(15, 15),
-    origin: new google.maps.Point(0, 0),
-    size: new google.maps.Size(30, 30),
-    scaledSize: new google.maps.Size(24, 24)
-};
+
+// Check that service workers are supported
+if ('serviceWorker' in navigator) {
+    // Use the window load event to keep the page load performant
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js');
+    });
+}
 
 function initMap() {
     var markerArray = [];
@@ -43,6 +44,13 @@ function initMap() {
     var currLoc;
     var locArray = [];
     if (navigator.geolocation) {
+        var markerImage = {
+            url: './img/icons/marker.svg',
+            anchor: new google.maps.Point(15, 15),
+            origin: new google.maps.Point(0, 0),
+            size: new google.maps.Size(30, 30),
+            scaledSize: new google.maps.Size(24, 24)
+        };
         curPosMarker = new google.maps.Marker({
             position: new google.maps.LatLng(0, 0),
             map: map,

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="app.js">
+    </script>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css?family=Lato|Roboto&display=swap" rel="stylesheet">
+    <title>Directions Service (Complex)</title>
+</head>
+<body onload="pageLoaded()">
+    <div id="main-splash" class="splash-screen">Navigate-a-Bull</div>
+    <div class="app-content navbar-padding">
+        <div class="list-item">Place Name Here</div>
+        <div class="list-item">Place Name Here</div>
+        <div class="list-item">Place Name Here</div>
+        <div class="list-item">Place Name Here</div>
+        <div class="list-item">Place Name Here</div>
+        <div class="list-item">Place Name Here</div>
+        <div class="list-item">Place Name Here</div>
+        <div class="list-item">Place Name Here</div>
+        <div class="list-item">Place Name Here</div>
+        <div class="list-item">Place Name Here</div>
+        <div class="list-item">Place Name Here</div>
+        <div class="list-item">Place Name Here</div>
+        <div class="list-item">Place Name Here</div>
+        <div class="list-item">Place Name Here</div>
+        <div class="list-item">Place Name Here</div>
+        <div class="list-item">Place Name Here</div>
+    </div>
+    <div class="topBar"><div class="title"><h1>Favorites</h1></div>
+    <button class ="fab left noshadow" onclick="showHideNav()">...</button>
+    </div>
+    <div id="darken-bg" onclick="showHideNav()"></div>
+    <div id="nav-panel">
+            <a href="/favorites"><div class="nav-item" data-link="/favorites">Favorites</div></a>
+            <div class="nav-item" data-link="/settings">Settings</div>
+            <div class="nav-item" data-link="/about">About</div>
+    </div>
+</body>
+
+</html>

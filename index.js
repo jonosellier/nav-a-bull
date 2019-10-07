@@ -21,6 +21,10 @@ app.get('/', (req, res) => res.render('index', { apikey: "" + process.env.API_KE
     res.send(html);
 }));
 
+app.get('/favorites', (req, res) => res.render('favs', function(err, html) {
+    res.send(html);
+}));
+
 app.get('/test.json', (req, res) => res.send(`{"object": 4, "stuff": NULL}`));
 
 //start the server
