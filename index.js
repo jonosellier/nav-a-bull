@@ -13,7 +13,7 @@ app.set('view engine', 'ejs');
 app.use(express.static('staticContent'));
 app.all("*", function(req, res, next) {
     console.log("Requested " + req.originalUrl); // do anything you want here
-    if (process.env.DEV_MODE != "true") res.redirect('https://' + req.headers.host + req.url);
+    if (process.env.DEV_MODE != "true" && !req.secure) res.redirect('https://' + req.headers.host + req.url);
     next();
 });
 
