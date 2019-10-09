@@ -3,7 +3,8 @@
     "short_name": "Nav-a-Bull",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#fff",
+    "background_color": "#ffffff",
+    "theme_color": "#ffffff",
     "description": "Navigation for USF's campus",
     "icons": [{
             "src": "/icons/android-icon-36x36.png",
