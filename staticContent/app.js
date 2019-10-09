@@ -59,8 +59,6 @@ function initMap() {
         navigator.geolocation.getCurrentPosition(setCurPos);
         navigator.geolocation.watchPosition(setCurPos);
     } else alert("Location permission needed. Please allow and restart the app.");
-
-    pageLoaded(); //finally call pageLoaded
 }
 
 function recenterMap() {
@@ -140,11 +138,4 @@ function showHideNav() {
 
 function pageLoaded() {
     showHideNav();
-    const splash = document.getElementsByClassName('splash-screen');
-    window.setTimeout(function() {
-        splash[0].style.opacity = "0";
-    }, 1000);
-    window.setTimeout(function() {
-        splash[0].style.display = "none";
-    }, 1500);
 }

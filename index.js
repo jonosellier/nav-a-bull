@@ -11,17 +11,18 @@ app.set('view engine', 'ejs');
 
 //sets staticContent folder as the root for all static content (ie .../staticContent/app.js is accessed as ./app.js)
 app.use(express.static('staticContent'));
-app.all("*", function(req, resp, next) {
+app.all("*", function(req, res, next) {
     console.log("Requested " + req.originalUrl); // do anything you want here
+    if (process.env.DEV_MODE != "true") res.redirect('https://' + req.headers.host + req.url);
     next();
 });
 
 //when a GET request is made for the root we render the index.ejs page passing the API key in to be rendered as an HTML string response
-app.get('/', (req, res) => res.render('index', { apikey: "" + process.env.API_KEY }, function(err, html) {
+app.get('/', (req, res) => res.render('index', { apikey: "" + process.env.API_KEY, page: "map" }, function(err, html) {
     res.send(html);
 }));
 
-app.get('/favorites', (req, res) => res.render('favs', function(err, html) {
+app.get('/favorites', (req, res) => res.render('favs', { page: "fav" }, function(err, html) {
     res.send(html);
 }));
 

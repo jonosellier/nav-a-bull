@@ -1,0 +1,18 @@
+<aside class="mdc-drawer">
+    <div class="mdc-drawer__content">
+        <nav class="mdc-list">
+        <a class="mdc-list-item <% if(page == "map") { %>mdc-list-item--activated <% } %>" href="/" aria-current="page">
+            <i class="material-icons mdc-list-item__graphic" aria-hidden="true">map</i>
+            <span class="mdc-list-item__text">Map</span>
+        </a>
+        <a class="mdc-list-item <% if(page == "fav") { %>mdc-list-item--activated <% } %>" href="/favorites">
+            <i class="material-icons mdc-list-item__graphic" aria-hidden="true">star</i>
+            <span class="mdc-list-item__text">Favorites</span>
+        </a>
+        <a class="mdc-list-item <% if(page == "about") { %>mdc-list-item--activated <% } %>" href="#">
+            <i class="material-icons mdc-list-item__graphic" aria-hidden="true">info</i>
+            <span class="mdc-list-item__text">About</span>
+        </a>
+        </nav>
+    </div>
+</aside>

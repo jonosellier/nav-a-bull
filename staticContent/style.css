@@ -1,3 +1,32 @@
+/* Theme colors*/
+
+:root {
+    --mdc-theme-primary: #fafafa;
+    --mdc-theme-secondary: #43a047;
+    --mdc-theme-on-primary: #000000;
+    --mdc-theme-text-primary-on-light: #000000;
+}
+
+.mdc-top-app-bar__title {
+    color: var(--mdc-theme-text-primary-on-light);
+}
+
+.transparent {
+    --mdc-theme-primary: : rgba(255, 255, 255, 0) !important;
+}
+
+.transparent .mdc-top-app-bar__row section .mdc-icon-button {
+    background-color: #fafafa;
+    border-radius: 100%;
+    box-shadow: 0 0 0.5em 0.25em #1111112a;
+}
+
+.mdc-drawer .mdc-list-item--activated,
+.mdc-drawer .mdc-list-item--activated .mdc-list-item__graphic {
+    color: var(--mdc-theme-secondary);
+}
+
+
 /* Always set the map height explicitly to define the size of the div
 * element that contains the map. */
 
@@ -84,11 +113,12 @@ select {
     background-image: url('/img/icons/more_horiz-24px.svg');
     background-position: calc(100% - 0.5em);
     background-repeat: no-repeat;
-    background-size: 48px;
+    background-size: 32px;
     border: 2px solid #aaa;
     border-radius: 0.25em;
     padding: 0.5em;
-    font-size: 1.5em;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.25em;
     margin-top: 0.75em;
     margin-bottom: -2px;
     width: 100%;
@@ -120,8 +150,8 @@ select::-ms-expand {
 
 #end {
     position: sticky;
-    margin-bottom: 1em;
-    bottom: calc(1.25em - 2px);
+    margin-bottom: 1.25em;
+    bottom: calc(2em + 0px);
     margin-top: 0;
     border-radius: 0 0 0.25em 0.25em;
     border-top-style: none;
@@ -169,6 +199,13 @@ select::-ms-expand {
 
 a {
     text-decoration: none;
+}
+
+.pos-tr {
+    z-index: 100;
+    position: fixed;
+    top: 0.25em;
+    right: 0.25em;
 }
 
 .fab {
@@ -251,10 +288,6 @@ h1 {
     font-family: Lato, sans-serif;
     font-weight: normal;
     font-size: 2em;
-}
-
-#main-splash {
-    background-color: #FFFFFF;
 }
 
 .navbar-padding {
