@@ -15,7 +15,8 @@
     --mdc-theme-primary: : rgba(255, 255, 255, 0) !important;
 }
 
-.transparent .mdc-top-app-bar__row section .mdc-icon-button {
+.no-menu-button {
+    margin: 0.25em;
     background-color: #fafafa;
     border-radius: 100%;
     box-shadow: 0 0 0.5em 0.25em #1111112a;
@@ -290,7 +291,92 @@ h1 {
     font-size: 2em;
 }
 
+h3 {
+    font-size: 1em;
+    color: var(--mdc-theme-secondary);
+    margin-left: 1em;
+}
+
 .navbar-padding {
-    padding-top: 5em;
-    overflow: auto;
+    padding-top: 3em;
+}
+
+.bottom-padding {
+    display: block;
+    width: 100%;
+    height: 5em;
+}
+
+.mdc-fab {
+    position: fixed;
+    bottom: 1.5em;
+    right: 0.5em;
+}
+
+.map-recenter {
+    display: block;
+    position: absolute;
+    bottom: 6.5em;
+    right: 1em;
+    background-color: #fafafa;
+    border-radius: 100%;
+    box-shadow: 0 0 0.5em 0.25em #1111112a;
+    width: 2.5em;
+    height: 2.5em;
+}
+
+.inactive {
+    opacity: 0.2;
+}
+
+.text-btn {
+    display: inline-block;
+    color: var(--mdc-theme-secondary) !important;
+    font-size: 2em;
+    transition: 0.25s;
+}
+
+.doublewide-container {
+    display: block;
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+}
+
+.doublewide {
+    width: 200%;
+    height: 100%;
+    display: block;
+    margin: 0;
+    padding: 0;
+    transition: 0.25s
+}
+
+.doublewide div {
+    width: calc(50% - 3px);
+    height: 100%;
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+}
+
+.doublewide div * {
+    display: inline-block;
+    padding: 0.5em;
+    width: calc(100% - 1em);
+    vertical-align: top;
+}
+
+.formContainer * {
+    margin: 0.5em;
+    width: auto;
+}
+
+.mdc-button--outlined {
+    border-color: var(--mdc-theme-secondary) !important;
+    color: var(--mdc-theme-secondary) !important;
+}
+
+.mdc-text-field {
+    background-color: #FFFFFF00 !important
 }

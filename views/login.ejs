@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <%- include('partial/head'); -%>
+</head>
+<body onload="pageLoaded()">
+    <div class="app-content">
+    <div class=bottom-padding></div>
+    <button class="mdc-button text-btn" onclick="moveTo(0);">Log In</button> <button class="mdc-button inactive text-btn" onclick="moveTo(1);">Sign Up</button>
+    <div class="doublewide-container">
+    <div class="doublewide">
+    <div class="formContainer"><form action="/">
+    <div class="mdc-text-field">
+        <input type="text" id="my-text-field" class="mdc-text-field__input">
+        <label class="mdc-floating-label" for="my-text-field">Username</label>
+    </div>
+    <div class="mdc-text-field">
+        <input type="password" id="my-text-field" class="mdc-text-field__input">
+        <label class="mdc-floating-label" for="my-text-field">Password</label>
+    </div>
+    <div class="mdc-text-field">
+    <button type="submit" class="mdc-button mdc-button--outlined">Log In</button>
+    </div>
+    </form></div>
+    <div class="formContainer"><form action="/">
+    <div class="mdc-text-field">
+        <input type="text" id="my-text-field" class="mdc-text-field__input">
+        <label class="mdc-floating-label" for="my-text-field">Username</label>
+    </div>
+    <div class="mdc-text-field">
+        <input type="password" id="my-text-field" class="mdc-text-field__input">
+        <label class="mdc-floating-label" for="my-text-field">Password</label>
+    </div>
+    <div class="mdc-text-field">
+        <input type="password" id="my-text-field" class="mdc-text-field__input">
+        <label class="mdc-floating-label" for="my-text-field">Confirm Password</label>
+    </div>
+    <div class="mdc-text-field">
+    <button type="submit" class="mdc-button mdc-button--outlined">Sign Up</button>
+    </div>
+    </form></div>
+    </div>
+    </div>
+    </div>
+    <button class="material-icons mdc-top-app-bar__navigation-icon mdc-icon-button no-menu-button" onclick="window.location.href =`/`">arrow_back</button>
+    <div id="darken-bg" onclick="showHideNav()"></div>
+    <div id="nav-panel">
+        <%- include('partial/navpanel'); -%>
+    </div>
+</body>
+
+</html>
