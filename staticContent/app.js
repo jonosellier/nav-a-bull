@@ -138,6 +138,7 @@ function showHideNav() {
 
 function pageLoaded() {
     showHideNav();
+    mdc.autoInit();
 }
 
 function moveTo(pos) {
@@ -147,4 +148,18 @@ function moveTo(pos) {
         e.classList.add('inactive');
     }
     document.getElementsByClassName('text-btn')[pos].classList.remove('inactive');
+}
+
+async function populateFavs() {
+    let page = document.getElementById("place-list");
+    page.innerHTML = '';
+    const res = await fetch("/datafile.json");
+    const favObj = await res.json();
+    console.log(favObj);
+    for (const place in favObj) {
+        if (Array.isArray(favObj[place])) {
+            page.innerHTML += `<h3>${place}</h3>`;
+            for (const e of favObj[place]) page.innerHTML += `<li class="mdc-list-item" tabindex="0"><span class="mdc-list-item__graphic material-icons" aria-hidden="true">star</span> <span class="mdc-list-item__text">${e}</span></li>`;
+        } else page.innerHTML += `<h3>${place}</h3><h2><span class="material-icons h2-icon" aria-hidden="true">${place.toLowerCase()}</span> ${favObj[place]}</h2>`;
+    }
 }

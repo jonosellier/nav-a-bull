@@ -30,7 +30,5 @@ app.get('/login', (req, res) => res.render('login', { page: "login" }, function(
     res.send(html);
 }));
 
-app.get('/test.json', (req, res) => res.send(`{"object": 4, "stuff": NULL}`));
-
 //start the server
 app.listen(port, () => console.log(`Listening on port ${port}!`));
