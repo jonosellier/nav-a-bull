@@ -7,6 +7,10 @@
     --mdc-theme-text-primary-on-light: #000000;
 }
 
+body {
+    background-color: var(--mdc-theme-primary);
+}
+
 .mdc-top-app-bar__title {
     color: var(--mdc-theme-text-primary-on-light);
 }
@@ -76,7 +80,7 @@ body {
     top: calc(100% - 7.9em);
     height: auto;
     z-index: 5;
-    background-color: #ffffff;
+    background-color: #fafafa;
     border: 1px solid #eeeeee;
     text-align: center;
     font-family: 'Roboto', 'sans-serif';
@@ -295,7 +299,6 @@ h1 {
 h2 {
     font-size: 1.5em;
     color: var(--mdc-theme-secondary);
-    margin-left: 0.75em;
 }
 
 .h2-icon {
@@ -391,14 +394,14 @@ h3 {
 }
 
 .form-input {
-    background-color: #FFFFFF00 !important;
+    background-color: #fafafa00 !important;
     border: 1px solid var(--mdc-theme-secondary);
     border-radius: 0.25em;
     font-size: 1em;
 }
 
 .mdc-text-field {
-    background-color: #FFFFFF00 !important;
+    background-color: #fafafa00 !important;
 }
 
 .fw-form {

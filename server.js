@@ -11,10 +11,9 @@ app.set('view engine', 'ejs');
 
 //sets staticContent folder as the root for all static content (ie .../staticContent/app.js is accessed as ./app.js)
 app.use(express.static('staticContent'));
-app.all("*", function(req, res, next) {
-    console.log("Requested " + req.originalUrl); // do anything you want here
-    //if (process.env.DEV_MODE != "true" && !req.secure) res.redirect('https://' + req.headers.host + req.url);
-    next();
+app.use(function(req, res, next) {
+    if (req.secure) next();
+    else res.redirect('https://' + req.headers.host + req.url);
 });
 
 //when a GET request is made for the root we render the index.ejs page passing the API key in to be rendered as an HTML string response
