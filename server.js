@@ -11,13 +11,6 @@ app.set('view engine', 'ejs');
 
 //sets staticContent folder as the root for all static content (ie .../staticContent/app.js is accessed as ./app.js)
 app.use(express.static('staticContent'));
-app.use(function(req, res, next) {
-    if (req.secure) next();
-    else {
-        console.log("Upgrading to https");
-        res.redirect('https://' + req.headers.host + req.url);
-    }
-});
 
 //when a GET request is made for the root we render the index.ejs page passing the API key in to be rendered as an HTML string response
 app.get('/', (req, res) => res.render('index', { apikey: "" + process.env.API_KEY, page: "map" }, function(err, html) {
