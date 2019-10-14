@@ -17,7 +17,12 @@ workbox.routing.registerRoute(
 
 // html caching
 workbox.routing.registerRoute(
-    /\.html$/,
+    /^((?!\.).)*$/gm,
+    new workbox.strategies.NetworkFirst(),
+);
+
+workbox.routing.registerRoute(
+    "/",
     new workbox.strategies.NetworkFirst(),
 );
 
