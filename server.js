@@ -13,7 +13,10 @@ app.set('view engine', 'ejs');
 app.use(express.static('staticContent'));
 app.use(function(req, res, next) {
     if (req.secure) next();
-    else res.redirect('https://' + req.headers.host + req.url);
+    else {
+        console.log("Upgrading to https");
+        res.redirect('https://' + req.headers.host + req.url);
+    }
 });
 
 //when a GET request is made for the root we render the index.ejs page passing the API key in to be rendered as an HTML string response
