@@ -170,7 +170,7 @@ async function populateLocations() {
     const placesArray = await response.json();
     let contents;
     for (const place of placesArray) {
-        contents += `<option value="${place.locationCode} Tampa, Florida">${place.name}</option>`
+        contents += `<option value="${place.locationCode}">${place.name}</option>`
     }
     document.getElementById('start').innerHTML = `
     <option value="myLoc" disabled selected hidden>I'm coming from...</option>
