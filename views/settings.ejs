@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <%- include('partial/head'); -%>
+</head>
+
+<body onload="populateFavs()">
+    <div class="app-content navbar-padding">
+        <div class="centered-content">
+            <div id="profile-pic"></div><br>
+            <h2>John Jonsonson</h2>
+        </div>
+        <h3>Total Steps taken: 694</h3>
+
+        <button class="mdc-fab mdc-fab--extended">
+            <span class="material-icons mdc-fab__icon">edit</span>
+            <span class="mdc-fab__label">Edit Profile</span>
+        </button>
+        <div class="bottom-padding"></div>
+    </div>
+    <header class="mdc-top-app-bar">
+        <div class="mdc-top-app-bar__row">
+            <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
+                <button class="material-icons mdc-top-app-bar__navigation-icon mdc-icon-button" onclick="showHideNav()">menu</button>
+                <span class="mdc-top-app-bar__title">Profile</span>
+            </section>
+        </div>
+    </header>
+    <div id="darken-bg" onclick="showHideNav()"></div>
+    <div id="nav-panel">
+        <%- include('partial/navpanel'); -%>
+    </div>
+</body>
+
+</html>

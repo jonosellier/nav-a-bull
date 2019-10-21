@@ -297,6 +297,8 @@ h1 {
 }
 
 h2 {
+    font-family: 'Roboto', sans-serif;
+    font-weight: normal;
     font-size: 1.5em;
     color: var(--mdc-theme-secondary);
 }
@@ -306,9 +308,18 @@ h2 {
 }
 
 h3 {
+    font-family: 'Roboto', sans-serif;
     font-size: 1em;
+    font-weight: normal;
     color: var(--mdc-theme-secondary);
     margin-left: 1em;
+}
+
+h4 {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1em;
+    font-weight: normal;
+    color: var(--mdc-theme-secondary);
 }
 
 .navbar-padding {
@@ -408,4 +419,27 @@ h3 {
     display: block;
     margin: 0;
     padding: 0;
+}
+
+.centered-content {
+    display: block;
+    width: 100%;
+    text-align: center !important;
+}
+
+.centered-content * {
+    display: inline-block;
+    position: relative;
+    top: 0;
+    left: auto;
+    right: auto;
+}
+
+#profile-pic {
+    margin: 1em;
+    display: inline-block;
+    background-color: #cccccc;
+    width: 6em;
+    height: 6em;
+    border-radius: 50%;
 }

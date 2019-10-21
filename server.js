@@ -35,6 +35,10 @@ app.get('/login', (req, res) => res.render('login', { page: "login" }, function(
     res.send(html);
 }));
 
+app.get('/settings', (req, res) => res.render('settings', { page: "settings" }, function(err, html) {
+    res.send(html);
+}));
+
 app.get('/places.json', (req, response) => {
     const out = client.query('SELECT * FROM locations')
         .then(res => res.rows)
