@@ -95,6 +95,8 @@ function calculateAndDisplayRoute(directionsRenderer, directionsService, markerA
         // markers for each step.
         if (status === 'OK') {
             document.getElementById('warnings-panel').innerHTML =
+                `<p>0 steps taken</p>
+                <p>Steps calculation here</p>` +
                 '<b>' + response.routes[0].warnings + '</b>';
             directionsRenderer.setDirections(response);
             showSteps(response, markerArray, stepDisplay, map);
@@ -170,7 +172,7 @@ async function populateLocations() {
     const placesArray = await response.json();
     let contents;
     for (const place of placesArray) {
-        contents += `<option value="${place.locationCode}">${place.name}</option>`
+        contents += `<option value="${place.locationCode}">${place.name}</option>`;
     }
     document.getElementById('start').innerHTML = `
     <option value="myLoc" disabled selected hidden>I'm coming from...</option>
