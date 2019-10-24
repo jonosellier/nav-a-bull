@@ -13,4 +13,5 @@ async function populateFavs() {
 
 function pageLoaded() {
     showHideNav();
+    populateFavs();
 }
