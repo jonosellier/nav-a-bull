@@ -15,3 +15,14 @@ function showHideNav() {
         document.getElementById("darken-bg").style.display = "none";
     }
 }
+
+function getTheme() {
+    if (localStorage.getItem('usr-theme-pref') == 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+    else document.documentElement.setAttribute('data-theme', 'light');
+}
+
+function toggleTheme() {
+    if (localStorage.getItem('usr-theme-pref') == 'dark') localStorage.setItem('usr-theme-pref', 'light');
+    else localStorage.setItem('usr-theme-pref', 'dark');
+    getTheme();
+}

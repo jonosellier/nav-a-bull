@@ -12,6 +12,7 @@ async function populateFavs() {
 }
 
 function pageLoaded() {
+    getTheme();
     showHideNav();
     populateFavs();
 }

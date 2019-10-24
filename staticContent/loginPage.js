@@ -6,3 +6,7 @@ function moveTo(pos) {
     }
     document.getElementsByClassName('text-btn')[pos].classList.remove('inactive');
 }
+
+function pageLoaded() {
+    getTheme();
+}

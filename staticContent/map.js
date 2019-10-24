@@ -123,6 +123,7 @@ function attachInstructionText(stepDisplay, marker, text, map) {
 }
 
 function pageLoaded() {
+    getTheme();
     showHideNav();
 }
 
