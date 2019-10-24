@@ -3,12 +3,14 @@
 
 <head>
     <%- include('partial/head'); -%>
+        <script src="map.js"></script>
 </head>
+
 <body onload="pageLoaded()">
     <div class="app-content">
         <div class="pull-up-panel">
-        <div class="panel-puller">
-        </div>
+            <div class="panel-puller">
+            </div>
             <select id='start'>
                 <option value="myLoc" disabled selected hidden>I'm coming from...</option>
                 <option value="myLoc">Current Location</option>

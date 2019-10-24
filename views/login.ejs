@@ -3,40 +3,46 @@
 
 <head>
     <%- include('partial/head'); -%>
+        <script src="loginPage.js"></script>
 </head>
+
 <body onload="pageLoaded()">
     <div class="app-content">
-    <div class=bottom-padding></div>
-    <button class="mdc-button text-btn" onclick="moveTo(0);">Log In</button> <button class="mdc-button inactive text-btn" onclick="moveTo(1);">Sign Up</button>
-    <div class="doublewide-container">
-    <div class="doublewide">
-    <div class="formContainer"><form class="fw-form" action="/">
-    <div class="mdc-text-field">
-        <input type="text" id="lguser" class="form-input" placeholder="Username">
-    </div>
-    <div class="mdc-text-field">
-        <input type="password" id="lgpw" class="form-input" placeholder="Password">
-    </div>
-    <div class="mdc-text-field">
-    <button type="submit" class="mdc-button mdc-button--outlined">Log In</button>
-    </div>
-    </form></div>
-    <div class="formContainer"><form class="fw-form" action="/">
-    <div class="mdc-text-field">
-        <input type="text" id="suuser" class="form-input" placeholder="Username">
-    </div>
-    <div class="mdc-text-field">
-        <input type="password" id="supw" class="form-input" placeholder="Password">
+        <div class=bottom-padding></div>
+        <button class="mdc-button text-btn" onclick="moveTo(0);">Log In</button> <button class="mdc-button inactive text-btn" onclick="moveTo(1);">Sign Up</button>
+        <div class="doublewide-container">
+            <div class="doublewide">
+                <div class="formContainer">
+                    <form class="fw-form" action="/">
+                        <div class="mdc-text-field">
+                            <input type="text" id="lguser" class="form-input" placeholder="Username">
+                        </div>
+                        <div class="mdc-text-field">
+                            <input type="password" id="lgpw" class="form-input" placeholder="Password">
+                        </div>
+                        <div class="mdc-text-field">
+                            <button type="submit" class="mdc-button mdc-button--outlined">Log In</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="formContainer">
+                    <form class="fw-form" action="/">
+                        <div class="mdc-text-field">
+                            <input type="text" id="suuser" class="form-input" placeholder="Username">
+                        </div>
+                        <div class="mdc-text-field">
+                            <input type="password" id="supw" class="form-input" placeholder="Password">
+                        </div>
+                        <div class="mdc-text-field">
+                            <input type="password" id="supwc" class="form-input" placeholder="Confrirm Password">
+                        </div>
+                        <div class="mdc-text-field">
+                            <button type="submit" class="mdc-button mdc-button--outlined">Sign Up</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
-    <div class="mdc-text-field">
-        <input type="password" id="supwc" class="form-input" placeholder="Confrirm Password">
-    </div>
-    <div class="mdc-text-field">
-    <button type="submit" class="mdc-button mdc-button--outlined">Sign Up</button>
-    </div>
-    </form></div>
-    </div>
-    </div>
     </div>
     <button class="material-icons mdc-top-app-bar__navigation-icon mdc-icon-button no-menu-button" onclick="window.location.href =`/`">arrow_back</button>
     <div id="darken-bg" onclick="showHideNav()"></div>
