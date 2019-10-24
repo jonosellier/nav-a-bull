@@ -23,8 +23,7 @@ function initMap() {
     var stepDisplay = new google.maps.InfoWindow();
 
     // Display the route between the initial start and end selections.
-    calculateAndDisplayRoute(
-        directionsRenderer, directionsService, markerArray, stepDisplay, map);
+    calculateAndDisplayRoute(directionsRenderer, directionsService, markerArray, stepDisplay, map);
     // Listen to change events from the start and end lists.
     var onChangeHandler = function() {
         calculateAndDisplayRoute(
@@ -33,8 +32,6 @@ function initMap() {
     document.getElementById('start').addEventListener('change', onChangeHandler);
     document.getElementById('end').addEventListener('change', onChangeHandler);
 
-    var currLoc;
-    var locArray = [];
     if (navigator.geolocation) {
         var markerImage = {
             url: './img/icons/marker.svg',

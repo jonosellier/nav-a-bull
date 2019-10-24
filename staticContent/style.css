@@ -1,5 +1,16 @@
 /* Theme colors*/
 
+@media(prefers-color-scheme: 'dark') {
+     :root {
+        --mdc-theme-primary: #2b2b2b;
+        --mdc-theme-primary-lighter: #263238;
+        --mdc-theme-secondary: #81c784;
+        --mdc-theme-on-primary: #8f8f8f;
+        --mdc-theme-text-primary-on-light: #000000;
+        --mdc-theme-text-icon-on-background: #808080;
+    }
+}
+
 :root {
     --mdc-theme-primary: #fafafa;
     --mdc-theme-primary-lighter: #f4f4f4;
