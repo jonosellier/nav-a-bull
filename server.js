@@ -45,5 +45,16 @@ app.get('/places.json', (req, response) => {
         .then(row => response.send(row));
 });
 
+/*
+ * TODO: Use user ID as query param
+ */
+app.get('/datafile.json', (req, response) => {
+    const out = client.query({
+        rowMode: 'array',
+        text: 'SELECT getfavloc($1);',
+        values: ['1']})
+        .then(res => response.send(JSON.parse(res.rows[0])));
+});
+
 //start the server
 app.listen(port, () => console.log(`Listening on port ${port}!`));
