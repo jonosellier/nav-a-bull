@@ -11,8 +11,18 @@ async function populateFavs() {
     }
 }
 
+
+const onClickFav = (list) => {
+    for (i=0; i<list.length; i++) {
+        const l = list[i];
+        l.addEventListener('click', () => console.log('clicked fav'));
+    }
+}
+
 function pageLoaded() {
     getTheme();
     showHideNav();
-    populateFavs();
+    populateFavs()
+        .then(() => document.getElementsByClassName('mdc-list-item'))
+        .then((list) => onClickFav(list));
 }
