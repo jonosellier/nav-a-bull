@@ -38,6 +38,15 @@
     color: var(--mdc-theme-secondary);
 }
 
+#clear-route {
+    border: none;
+    border-radius: 10px;
+    height: 30px;
+    top: 20vh;
+    width: 60px;
+    position: fixed;
+}
+
 
 /* Always set the map height explicitly to define the size of the div
 * element that contains the map. */

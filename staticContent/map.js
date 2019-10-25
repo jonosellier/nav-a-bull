@@ -33,6 +33,18 @@ function initMap() {
     document.getElementById('start').addEventListener('change', onChangeHandler);
     document.getElementById('end').addEventListener('change', onChangeHandler);
 
+    // Reset start/end selections to default values
+    // null each element in marker array and reset the array
+    // Set directions with a null route
+    document.getElementById('clear-route').addEventListener('click', function() {
+        document.getElementById('start').selectedIndex=0;
+        document.getElementById('end').selectedIndex=0;
+        for (m of markerArray)
+            m.setMap(null);
+        m.length = 0;
+        directionsRenderer.setDirections({routes: []});
+    });
+
     var currLoc;
     var locArray = [];
     if (navigator.geolocation) {
