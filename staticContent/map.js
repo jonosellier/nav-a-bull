@@ -37,8 +37,8 @@ function initMap() {
     // null each element in marker array and reset the array
     // Set directions with a null route
     document.getElementById('clear-route').addEventListener('click', function() {
-        document.getElementById('start').selectedIndex=0;
-        document.getElementById('end').selectedIndex=0;
+        document.getElementById('start').selectedIndex = 0;
+        document.getElementById('end').selectedIndex = 0;
         for (m of markerArray)
             m.setMap(null);
         m.length = 0;
