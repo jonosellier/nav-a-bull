@@ -19,6 +19,7 @@ function showHideNav() {
 function getTheme() {
     if (localStorage.getItem('usr-theme-pref') == 'dark') document.documentElement.setAttribute('data-theme', 'dark');
     else document.documentElement.setAttribute('data-theme', 'light');
+    if (document.getElementById('map')) initMap();
 }
 
 function toggleTheme() {
