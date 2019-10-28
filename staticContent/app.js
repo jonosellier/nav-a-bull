@@ -26,3 +26,18 @@ function toggleTheme() {
     else localStorage.setItem('usr-theme-pref', 'dark');
     getTheme();
 }
+
+function toast(message, type) {
+    if (type) {
+        document.getElementById('toast').innerHTML = `<h5>${message}</h5>`;
+        document.getElementById('toast').classList.add(type);
+    }
+    document.getElementById('toast').style.bottom = "1em";
+}
+
+function untoast(time = 0) {
+    setTimeout(function() {
+        document.getElementById('toast').style.bottom = "-100%";
+        document.getElementById('toast').className = '';
+    }, time);
+}

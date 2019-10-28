@@ -13,12 +13,12 @@
         <div class="doublewide-container">
             <div class="doublewide">
                 <div class="formContainer">
-                    <form class="fw-form" action="/">
+                    <form class="fw-form" action="/" id="lgForm" method="POST">
                         <div class="mdc-text-field">
-                            <input type="text" id="lguser" class="form-input" placeholder="Username">
+                            <input type="text" name="lguser" class="form-input" placeholder="Username">
                         </div>
                         <div class="mdc-text-field">
-                            <input type="password" id="lgpw" class="form-input" placeholder="Password">
+                            <input type="password" name="lgpw" class="form-input" placeholder="Password">
                         </div>
                         <div class="mdc-text-field">
                             <button type="submit" class="mdc-button mdc-button--outlined">Log In</button>
@@ -26,18 +26,18 @@
                     </form>
                 </div>
                 <div class="formContainer">
-                    <form class="fw-form" action="/">
+                    <form class="fw-form" action="/doSignUp" id="suForm" method="POST">
                         <div class="mdc-text-field">
-                            <input type="text" id="suuser" class="form-input" placeholder="Username">
+                            <input type="text" name="suuser" class="form-input" placeholder="Username" onchange="verify()">
                         </div>
                         <div class="mdc-text-field">
-                            <input type="password" id="supw" class="form-input" placeholder="Password">
+                            <input type="password" name="supw" class="form-input" placeholder="Password" onchange="verify()">
                         </div>
                         <div class="mdc-text-field">
-                            <input type="password" id="supwc" class="form-input" placeholder="Confrirm Password">
+                            <input type="password" name="supwc" class="form-input" placeholder="Confrirm Password" onchange="verify()">
                         </div>
                         <div class="mdc-text-field">
-                            <button type="submit" class="mdc-button mdc-button--outlined">Sign Up</button>
+                            <button type="submit" class="mdc-button mdc-button--outlined" id="suBtn">Sign Up</button>
                         </div>
                     </form>
                 </div>
@@ -48,6 +48,8 @@
     <div id="darken-bg" onclick="showHideNav()"></div>
     <div id="nav-panel">
         <%- include('partial/navpanel'); -%>
+    </div>
+    <div id='toast'>
     </div>
 </body>
 
