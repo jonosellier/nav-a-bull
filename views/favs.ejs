@@ -11,7 +11,7 @@
         <ul class="mdc-list" id="place-list">
             <!-- list populates here -->
         </ul>
-        <button class="mdc-fab mdc-fab--extended">
+        <button class="mdc-fab mdc-fab--extended" onclick="onClickAddPlace()">
             <span class="material-icons mdc-fab__icon">add</span>
             <span class="mdc-fab__label">Add a Place</span>
         </button>
@@ -28,6 +28,14 @@
     <div id="darken-bg" onclick="showHideNav()"></div>
     <div id="nav-panel">
         <%- include('partial/navpanel'); -%>
+    </div>
+    <div id="add-place-popup" class="hide">
+        <h3>Add A Place</h3>
+        <form method="POST" action="/favorites">
+            <select id="place" name="place"></select>
+            <select id="category" name="category"></select>
+            <input type="submit">
+        </form>
     </div>
 </body>
 

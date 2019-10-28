@@ -468,3 +468,20 @@ h4 {
 .mdc-drawer .mdc-list-item {
     color: var(--mdc-theme-on-primary);
 }
+
+/*** favorites ***/
+#add-place-popup {
+    background: #fff;
+    box-shadow: 0 0 1em 1em #aaa;
+    position: absolute;
+    top: 20vh;
+    padding-bottom: 5vh;
+}
+
+.show {
+    display: block;
+}
+
+.hide {
+    display: none;
+}
