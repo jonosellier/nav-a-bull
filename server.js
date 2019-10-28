@@ -7,7 +7,8 @@ const port = process.env.PORT || 3000;
 const timestamp = require('log-timestamp');
 
 const bodyParser = require('body-parser');
-const hasher = require('password-hash');
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
 app.use(bodyParser.json()); // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({ // to support URL-encoded bodies
@@ -68,8 +69,14 @@ app.post('/doSignUp', (req, res) => {
     const pw = req.body.supw;
     const pwc = req.body.supwc;
     console.log("Pass: " + pw + "\nConf: " + pwc);
-    if (pw == pwc) res.send("Good");
-    else res.send("Bad");
+    if (pw == pwc) {
+        bcrypt.hash(pw, saltRounds, function(err, hash) {
+            if (err) console.error(err);
+            console.log(pw + " -> " + hash);
+            //store in db here
+        });
+        res.send("Good");
+    } else res.send("Bad");
 });
 
 app.get('/places.json', (req, response) => {
