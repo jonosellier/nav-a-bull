@@ -37,6 +37,13 @@
             <input type="submit">
         </form>
     </div>
+    <div id="remove-place-popup" class="hide">
+        <form method="POST" action="/favorites-remove">
+            <input type="submit" value="Remove from favorites">
+            <input id="place-remove" type="hidden" name="location" value="val1">
+            <input id="category-remove" type="hidden" name="category" value="val1">
+        </form>
+    </div>
 </body>
 
 </html>

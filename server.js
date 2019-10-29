@@ -70,11 +70,20 @@ app.get('/categories.json', (req, response) => {
 app.post('/favorites', (req, response) => {
     const out = client.query({
         rowMode: 'array',
-        text: 'SELECT addPlace($1, $2, $3)',
+        text: 'SELECT addPlace($1, $2, $3);',
         values: ['1', req.body.place, req.body.category]})
         .catch(e => console.log(e))
         .finally(response.redirect('/favorites'));
-})
+});
+
+app.post('/favorites-remove', (req, response) => {
+    const out = client.query({
+        rowMode: 'array',
+        text: 'SELECT removeFavLoc3($1, $2, $3);',
+        values: ['1', req.body.location, req.body.category]})
+        .catch(e => console.log(e))
+        .finally(response.redirect('/favorites'));
+});
 
 //start the server
 app.listen(port, () => console.log(`Listening on port ${port}!`));
