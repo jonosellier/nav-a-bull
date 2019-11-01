@@ -2,6 +2,7 @@
  * Author: Alex Gibson
  * https://github.com/alexgibson/shake.js
  * License: MIT license
+ * Modified by Jonathan Sellier to better fit project needs
  */
 
 (function(global, factory) {
@@ -14,7 +15,7 @@
     } else {
         global.Shake = factory(global, global.document);
     }
-} (typeof window !== 'undefined' ? window : this, function (window, document) {
+}(typeof window !== 'undefined' ? window : this, function(window, document) {
 
     'use strict';
 
@@ -58,7 +59,7 @@
     }
 
     //reset timer values
-    Shake.prototype.reset = function () {
+    Shake.prototype.reset = function() {
         this.lastTime = new Date();
         this.lastX = null;
         this.lastY = null;
@@ -66,7 +67,7 @@
     };
 
     //start listening for devicemotion
-    Shake.prototype.start = function () {
+    Shake.prototype.start = function() {
         this.reset();
         if (this.hasDeviceMotion) {
             window.addEventListener('devicemotion', this, false);
@@ -74,7 +75,7 @@
     };
 
     //stop listening for devicemotion
-    Shake.prototype.stop = function () {
+    Shake.prototype.stop = function() {
         if (this.hasDeviceMotion) {
             window.removeEventListener('devicemotion', this, false);
         }
@@ -82,13 +83,15 @@
     };
 
     //calculates if shake did occur
-    Shake.prototype.devicemotion = function (e) {
+    Shake.prototype.devicemotion = function(e) {
         var current = e.accelerationIncludingGravity;
         var currentTime;
         var timeDifference;
         var deltaX = 0;
         var deltaY = 0;
         var deltaZ = 0;
+
+        var deltaA = 0;
 
         if ((this.lastX === null) && (this.lastY === null) && (this.lastZ === null)) {
             this.lastX = current.x;
@@ -101,7 +104,12 @@
         deltaY = Math.abs(this.lastY - current.y);
         deltaZ = Math.abs(this.lastZ - current.z);
 
-        if (((deltaX > this.options.threshold) && (deltaY > this.options.threshold)) || ((deltaX > this.options.threshold) && (deltaZ > this.options.threshold)) || ((deltaY > this.options.threshold) && (deltaZ > this.options.threshold))) {
+        //code added by Jonathan Sellier
+        //Normalize the acceleration
+        deltaA = Math.sqrt((deltaX * deltaX) + (deltaY * deltaY) + (deltaZ * deltaZ));
+        //end of code addition
+
+        if (deltaA > this.options.threshold) { //CHANGED: checks for general acceleration
             //calculate time in milliseconds since last shake registered
             currentTime = new Date();
             timeDifference = currentTime.getTime() - this.lastTime.getTime();
@@ -119,8 +127,8 @@
     };
 
     //event handler
-    Shake.prototype.handleEvent = function (e) {
-        if (typeof (this[e.type]) === 'function') {
+    Shake.prototype.handleEvent = function(e) {
+        if (typeof(this[e.type]) === 'function') {
             return this[e.type](e);
         }
     };
