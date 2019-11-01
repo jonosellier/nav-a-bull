@@ -48,6 +48,10 @@ app.get('/settings', (req, res) => res.render('settings', { page: "settings" }, 
     res.send(html);
 }));
 
+app.get('/about', (req, res) => res.render('about', { page: "about" }, function(err, html) {
+    res.send(html);
+}));
+
 app.post('/doLogin', (req, res) => {
     //get form data
     const user = req.body.lguser;
