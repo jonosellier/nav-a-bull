@@ -8,8 +8,8 @@ function initMap() {
     // Instantiate a directions service.
     var directionsService = new google.maps.DirectionsService();
 
-    // Create a map and center it on Manhattan.
     if (document.documentElement.getAttribute('data-theme') == 'dark') {
+        //dark map
         map = new google.maps.Map(document.getElementById('map'), {
             zoom: 15,
             center: { lat: 28.063325, lng: -82.4135998 },
@@ -97,6 +97,7 @@ function initMap() {
             ]
         });
     } else {
+        //slight map
         map = new google.maps.Map(document.getElementById('map'), {
             zoom: 15,
             center: { lat: 28.063325, lng: -82.4135998 },
@@ -157,17 +158,15 @@ function calculateAndDisplayRoute(directionsRenderer, directionsService, markerA
         markerArray[i].setMap(null);
     }
 
-    // Retrieve the start and end locations and create a DirectionsRequest using
-    // WALKING directions.
     let startLoc = "";
-    if (document.getElementById('start').value == "" || document.getElementById('end').value == "") return;
-    if (document.getElementById('start').value == "myLoc") {
+    if (document.getElementById('start').value == "" || document.getElementById('end').value == "") return; //not filled out yet so dont run
+    if (document.getElementById('start').value == "myLoc") { //for current location
         startLoc = curPosCoords;
     } else startLoc = document.getElementById('start').value;
     directionsService.route({
         origin: startLoc,
         destination: document.getElementById('end').value,
-        travelMode: 'WALKING'
+        travelMode: 'WALKING' //always walking
     }, function(response, status) {
         // Route the directions and pass the response to a function to create
         // markers for each step.
