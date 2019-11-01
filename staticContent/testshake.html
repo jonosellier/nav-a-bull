@@ -7,7 +7,8 @@
 
 <body>
     <p>Sensitivity</p><input type="text" id="sens">
-    <button onclick="testShake()"></button>
+    <p>Timeout (ms)</p><input type="text" id="time">
+    <button onclick="testShake()">Test</button>
     <p>Steps: <span id="step">0</span></p>
     <script>
         var step = 0;
@@ -16,7 +17,7 @@
             step = 0;
             var myShakeEvent = new Shake({
                 threshold: document.getElementById('sens').value, // optional shake strength threshold
-                timeout: 100 // optional, determines the frequency of event generation
+                timeout: document.getElementById('time').value // optional, determines the frequency of event generation
             });
 
             myShakeEvent.start();
