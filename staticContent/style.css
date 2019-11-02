@@ -32,7 +32,7 @@
     margin: 0.25em;
     background-color: var(--mdc-theme-primary);
     border-radius: 100%;
-    box-shadow: 0 0 0.5em 0.25em var(--shadow-color);
+    box-shadow: none;
     position: fixed;
 }
 
@@ -299,6 +299,8 @@ h1 {
     font-family: Lato, sans-serif;
     font-weight: normal;
     font-size: 2em;
+    margin: 0.5em;
+    color: var(--mdc-theme-secondary);
 }
 
 h2 {
@@ -416,7 +418,7 @@ h5 {
 
 .formContainer * {
     margin: 0.5em;
-    width: auto;
+    width: -webkit-fill-available;
 }
 
 .mdc-button--outlined {
@@ -439,6 +441,7 @@ h5 {
     display: block;
     margin: 0;
     padding: 0;
+    width: 100%;
 }
 
 .centered-content {

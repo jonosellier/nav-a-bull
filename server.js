@@ -30,7 +30,7 @@ app.set('view engine', 'ejs');
 app.use(express.static('staticContent'));
 
 //when a GET request is made for the root we render the index.ejs page passing the API key in to be rendered as an HTML string response
-app.get('/', (req, res) => res.render('index', { apikey: "x" + process.env.API_KEY, page: "map" }, function(err, html) {
+app.get('/', (req, res) => res.render('index', { apikey: "" + process.env.API_KEY, page: "map" }, function(err, html) {
     res.send(html);
 }));
 
@@ -38,7 +38,16 @@ app.get('/favorites', (req, res) => res.render('favs', { page: "fav" }, function
     res.send(html);
 }));
 
+//add to favorites return
+app.post('/favorites', (req, res) => res.render('favs', { page: "fav" }, function(err, html) {
+    res.send(html);
+}));
+
 app.get('/login', (req, res) => res.render('login', { page: "login" }, function(err, html) {
+    res.send(html);
+}));
+
+app.get('/addfav', (req, res) => res.render('addFav', { page: "addFav" }, function(err, html) {
     res.send(html);
 }));
 
