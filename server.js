@@ -5,10 +5,8 @@ const express = require('express');
 const app = express();
 const port = process.env.PORT || 3000;
 const timestamp = require('log-timestamp');
-
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
-const saltRounds = 10;
 
 app.use(bodyParser.json()); // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({ // to support URL-encoded bodies
@@ -32,7 +30,7 @@ app.set('view engine', 'ejs');
 app.use(express.static('staticContent'));
 
 //when a GET request is made for the root we render the index.ejs page passing the API key in to be rendered as an HTML string response
-app.get('/', (req, res) => res.render('index', { apikey: "" + process.env.API_KEY, page: "map" }, function(err, html) {
+app.get('/', (req, res) => res.render('index', { apikey: "x" + process.env.API_KEY, page: "map" }, function(err, html) {
     res.send(html);
 }));
 
@@ -55,32 +53,45 @@ app.get('/about', (req, res) => res.render('about', { page: "about" }, function(
 app.post('/doLogin', (req, res) => {
     //get form data
     const user = req.body.lguser;
-    const pwHash = hasher.generate(rq.body.lgpw);
+    const pw = req.body.lgpw;
     //DB query for username and hashed password here
-    if (hasher.verify(pwHash, "db hashed password here")) {
-        //login stuff
+    if (bcrypt.compareSync(pw, "db hashed password here")) {
+        //login success
+        const guid = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15); //random string
+        //store username and guid in DB here
         console.log("Login success!");
+        res.send("A JSON with the guid will be passed here");
     } else {
         console.log("incorrect");
+        res.send("Incorrect");
     }
-    res.send("Response HTML here");
 });
 
 app.post('/doSignUp', (req, res) => {
-    console.log(req.body);
     const user = req.body.suuser;
-    //todo add db query to confirm username isnt taken
+    //TODO: add db query to confirm username isnt taken
     const pw = req.body.supw;
     const pwc = req.body.supwc;
     console.log("Pass: " + pw + "\nConf: " + pwc);
     if (pw == pwc) {
-        bcrypt.hash(pw, saltRounds, function(err, hash) {
-            if (err) console.error(err);
-            console.log(pw + " -> " + hash);
-            //store in db here
-        });
-        res.send("Good");
+        const pwHash = bcrypt.hashSync(req.body.supw, 10);
+        //store in db
+        //login stuff below
+        const guid = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15); //random string
+        //store username and guid in DB here
+        console.log("Login success!");
+        res.send("A JSON with the guid will be passed here");
     } else res.send("Bad");
+});
+
+//API to check for valid login
+app.post('/validate', (req, res) => {
+    const inDatabase = false;
+    const guid = req.body.guid;
+    //check if it is in loggred in database
+    if (inDatabase) {
+        res.send(`{"login": true}`); //logged in confirmation
+    } else res.send(`{"login": false}`); //not logged in
 });
 
 app.get('/places.json', (req, response) => {
