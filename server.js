@@ -59,7 +59,7 @@ app.get('/about', (req, res) => res.render('about', { page: "about" }, function(
     res.send(html);
 }));
 
-app.post('/doLogin', (req, res) => {
+app.post('/doLogin', async (req, res) => {
     //get form data
     const user = req.body.lguser;
     const pw = req.body.lgpw;
@@ -67,97 +67,65 @@ app.post('/doLogin', (req, res) => {
     //DB query for username and hashed password here
     const loggingin =
     {
-        text: "SELECT * FROM users WHERE username = $1 && password = $2",
-        values: [user, pw]
-    } 
-    client.query(loggingin, (err, res) => {
-        if (err) {
-          console.log(err.stack)
-        } else {
+        text: "SELECT username, password FROM users WHERE username = $1",
+        values: [user]
+    }
 
-            /*
-            I'm not completely sure what this is doiing. But you should be able to check if there is an existing user 
-            based on the query. I think that the code excerpt should be in the client.query portion though. 
-            Again. This SHOULD work but it's not tested.
-            */
-
-            // if (bcrypt.compareSync(pw, res)) {
-            //     //login success
-            //     const guid = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15); //random string
-            //     //store username and guid in DB here
-            //     console.log("Login success!");
-            //     res.send("A JSON with the guid will be passed here");
-            // } else {
-            //     console.log("incorrect");
-            //     res.send("Incorrect");
-            //}
-            if(res.rowCount != 0)
-                console.log("User and Password Exists!")
-            }
-        }
-      )
-
-      //MOVED THIS UP TO THE CLIENT QUERY^
-    // if (bcrypt.compareSync(pw, "db hashed password here")) {
-    //     //login success
-    //     const guid = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15); //random string
-    //     //store username and guid in DB here
-    //     console.log("Login success!");
-    //     res.send("A JSON with the guid will be passed here");
-    // } else {
-    //     console.log("incorrect");
-    //     res.send("Incorrect");
-    // }
+    const { rows } = await client.query(loggingin.text, loggingin.values);
+    console.log(rows[0]);
+    if (bcrypt.compareSync(pw, rows[0].password)) {
+        //login success
+        const guid = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15); //random string
+        //store username and guid in DB here
+        console.log("Login success!");
+        const dataStr = `{'username':'${user}','uid':'${guid}'}`;
+        res.render('handlingLogin', { data: dataStr }, function(err, html) {
+            res.send(html);
+        });
+    } else {
+        console.log("incorrect");
+        res.send("Incorrect");
+    }
 });
 
-app.post('/doSignUp', (req, res) => {
+app.post('/doSignUp', async (req, res) => {
     const user = req.body.suuser;
 
     //TODO: add db query to confirm username isnt taken
     //COMPLETED ^ BUT WITHOUT TEST
-    
-    const question = "SELECT * FROM users WHERE \"userId\" = $1"
+
+    const question = "SELECT username, password FROM users WHERE username = $1"
     const value = [user]
-    client.query(question,value).then(output=>
-        {
-            //This if statement only works if the username isn't taken.
-            if(output.rowCount != 0)
+    const output = await client.query(question, value)
+    //This if statement only works if the username isn't taken.
+    if (output.rowCount == 0) {
+        const pw = req.body.supw;
+        const pwc = req.body.supwc;
+        console.log("Pass: " + pw + "\nConf: " + pwc);
+        if (pw == pwc) {
+            const pwHash = bcrypt.hashSync(req.body.supw, 10);
+            //store in db
+            //login stuff below
+            const guid = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15); //random string
+
+            const insertion =
             {
-                const pw = req.body.supw;
-                const pwc = req.body.supwc;
-                console.log("Pass: " + pw + "\nConf: " + pwc);
-                if (pw == pwc) {
-                    const pwHash = bcrypt.hashSync(req.body.supw, 10);
-                    //store in db
-                    //login stuff below
-                    const guid = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15); //random string
-                    
-                    //store username and guid in DB here
-                    // ****************
-                    //STILL UNTESTED IN ACTUAL ENVIRONMENT. TESTING INDEPENDENTLY AND WORKS
-                    //**************** 
-
-                    const insertion=
-                    {
-                        text: "INSERT INTO users(username, password) VALUES ($1, $2)",
-                        values: [user, pw]
-                    }
-                    client.query(insertion, (err, res) => {
-                        if (err) {
-                          console.log(err.stack)
-                        } else {
-                          console.log('Login Success!')
-                        }
-                      })
-                    res.send("A JSON with the guid will be passed here");
-                } else res.send("Bad");
-
-                //Test stuff. This prints out all the rows. 
-                // const data = res.rows
-                // data.forEach(row => console.log(row))
+                text: "INSERT INTO users(username, password) VALUES ($1, $2)",
+                values: [user, pwHash]
             }
-        })
-//Might need a client.end after every function. Probably not though
+            const insRes = await client.query(insertion);
+             console.log("Signup and Login success!");
+            const dataStr = `{'username':'${user}','uid':'${guid}'}`;
+            res.render('handlingLogin', { data: dataStr }, function(err, html) {
+                res.send(html);
+            });
+        } else res.send("Bad");
+
+        //Test stuff. This prints out all the rows.
+        // const data = res.rows
+        // data.forEach(row => console.log(row))
+    }
+    //Might need a client.end after every function. Probably not though
 
     // const pw = req.body.supw;
     // const pwc = req.body.supwc;
@@ -170,7 +138,7 @@ app.post('/doSignUp', (req, res) => {
     //     //store username and guid in DB here
     //     console.log("Login success!");
     //     res.send("A JSON with the guid will be passed here");
-    // } else res.send("Bad");
+    else res.send("Bad");
 });
 
 //API to check for valid login
