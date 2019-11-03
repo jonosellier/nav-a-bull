@@ -1,0 +1,37 @@
+<html>
+
+<head>
+    <title>Testing shaker</title>
+    <script src="shake.js"></script>
+</head>
+
+<body>
+    <p>Sensitivity</p><input type="text" id="sens">
+    <p>Timeout (ms)</p><input type="text" id="time">
+    <button onclick="testShake()">Test</button>
+    <p>Steps: <span id="step">0</span></p>
+    <script>
+        var step = 0;
+
+        function testShake() {
+            step = 0;
+            var myShakeEvent = new Shake({
+                threshold: document.getElementById('sens').value, // optional shake strength threshold
+                timeout: document.getElementById('time').value // optional, determines the frequency of event generation
+            });
+
+            myShakeEvent.start();
+
+            document.getElementById('step').innerHTML = step;
+
+            window.addEventListener('shake', shakeEventDidOccur, false);
+        }
+
+        function shakeEventDidOccur() {
+            step++;
+            document.getElementById('step').innerHTML = step;
+        }
+    </script>
+</body>
+
+</html>

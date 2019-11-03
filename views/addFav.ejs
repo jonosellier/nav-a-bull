@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <%- include('partial/head'); -%>
+        <script src="addFav.js"></script>
+</head>
+
+<body onload="pageLoaded()">
+    <div class="app-content">
+        <div class=bottom-padding></div>
+        <h1>Add a new favorite</h1>
+        <div class="formContainer">
+            <form class="fw-form" action="/favorites" id="newPlaceForm" method="POST">
+                <select name="place" form="newPlaceForm" id="buildingSelector">
+                    <option value="" disabled selected hidden>Building Name</option>
+                    <option value="a">Building A</option>
+                </select>
+                <select name="type" form="newPlaceForm">
+                    <option value="" disabled selected hidden>Building Type</option>
+                    <option value="home">Home</option>
+                    <option value="work">Work</option>
+                    <option value="class">Classes</option>
+                    <option value="parking">Parking Garages</option>
+                    <option value="other">Other</option>
+                </select>
+                <div class="mdc-text-field">
+                    <button type="submit" class="mdc-button mdc-button--outlined" id="suBtn">Add To Favorites</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <button class="material-icons mdc-top-app-bar__navigation-icon mdc-icon-button no-menu-button" onclick="window.location.href =`/favorites`">arrow_back</button>
+    <div id="darken-bg" onclick="showHideNav()"></div>
+    <div id="nav-panel">
+        <%- include('partial/navpanel'); -%>
+    </div>
+    <div id='toast'>
+    </div>
+</body>
+
+</html>

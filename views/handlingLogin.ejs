@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <%- include('partial/head'); -%>
+</head>
+
+<body onload="pageLoaded()">
+<%-`<script>localStorage.setItem("currLogin", "${data}")</script>`%>
+    <div class="app-content">
+    <h1>Logging you in</h1>
+    </div>
+    <script>window.location.replace("/")</script>
+</body>
+
+</html>

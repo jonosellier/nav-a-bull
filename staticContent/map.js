@@ -8,13 +8,103 @@ function initMap() {
     // Instantiate a directions service.
     var directionsService = new google.maps.DirectionsService();
 
-    // Create a map and center it on Manhattan.
-    map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 15,
-        center: { lat: 28.063325, lng: -82.4135998 },
-        gestureHandling: 'greedy',
-        disableDefaultUI: true
-    });
+    if (document.documentElement.getAttribute('data-theme') == 'dark') {
+        //dark map
+        map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 15,
+            center: { lat: 28.063325, lng: -82.4135998 },
+            gestureHandling: 'greedy',
+            disableDefaultUI: true,
+            styles: [
+                { elementType: 'geometry', stylers: [{ color: '#242f3e' }] },
+                { elementType: 'labels.text.stroke', stylers: [{ color: '#242f3e' }] },
+                { elementType: 'labels.text.fill', stylers: [{ color: '#746855' }] },
+                {
+                    featureType: 'administrative.locality',
+                    elementType: 'labels.text.fill',
+                    stylers: [{ color: '#d59563' }]
+                },
+                {
+                    featureType: 'poi',
+                    elementType: 'labels.text.fill',
+                    stylers: [{ color: '#d59563' }]
+                },
+                {
+                    featureType: 'poi.park',
+                    elementType: 'geometry',
+                    stylers: [{ color: '#263c3f' }]
+                },
+                {
+                    featureType: 'poi.park',
+                    elementType: 'labels.text.fill',
+                    stylers: [{ color: '#6b9a76' }]
+                },
+                {
+                    featureType: 'road',
+                    elementType: 'geometry',
+                    stylers: [{ color: '#38414e' }]
+                },
+                {
+                    featureType: 'road',
+                    elementType: 'geometry.stroke',
+                    stylers: [{ color: '#212a37' }]
+                },
+                {
+                    featureType: 'road',
+                    elementType: 'labels.text.fill',
+                    stylers: [{ color: '#9ca5b3' }]
+                },
+                {
+                    featureType: 'road.highway',
+                    elementType: 'geometry',
+                    stylers: [{ color: '#746855' }]
+                },
+                {
+                    featureType: 'road.highway',
+                    elementType: 'geometry.stroke',
+                    stylers: [{ color: '#1f2835' }]
+                },
+                {
+                    featureType: 'road.highway',
+                    elementType: 'labels.text.fill',
+                    stylers: [{ color: '#f3d19c' }]
+                },
+                {
+                    featureType: 'transit',
+                    elementType: 'geometry',
+                    stylers: [{ color: '#2f3948' }]
+                },
+                {
+                    featureType: 'transit.station',
+                    elementType: 'labels.text.fill',
+                    stylers: [{ color: '#d59563' }]
+                },
+                {
+                    featureType: 'water',
+                    elementType: 'geometry',
+                    stylers: [{ color: '#17263c' }]
+                },
+                {
+                    featureType: 'water',
+                    elementType: 'labels.text.fill',
+                    stylers: [{ color: '#515c6d' }]
+                },
+                {
+                    featureType: 'water',
+                    elementType: 'labels.text.stroke',
+                    stylers: [{ color: '#17263c' }]
+                }
+            ]
+        });
+    } else {
+        //slight map
+        map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 15,
+            center: { lat: 28.063325, lng: -82.4135998 },
+            gestureHandling: 'greedy',
+            disableDefaultUI: true
+        });
+    }
 
     // Create a renderer for directions and bind it to the map.
     var directionsRenderer = new google.maps.DirectionsRenderer({ map: map });
@@ -23,8 +113,7 @@ function initMap() {
     var stepDisplay = new google.maps.InfoWindow();
 
     // Display the route between the initial start and end selections.
-    calculateAndDisplayRoute(
-        directionsRenderer, directionsService, markerArray, stepDisplay, map);
+    calculateAndDisplayRoute(directionsRenderer, directionsService, markerArray, stepDisplay, map);
     // Listen to change events from the start and end lists.
     var onChangeHandler = function() {
         calculateAndDisplayRoute(
@@ -33,22 +122,6 @@ function initMap() {
     document.getElementById('start').addEventListener('change', onChangeHandler);
     document.getElementById('end').addEventListener('change', onChangeHandler);
 
-    // Reset start/end selections to default values
-    // null each element in marker array and reset the array
-    // Set directions with a null route
-    /*
-    document.getElementById('clear-route').addEventListener('click', function() {
-        document.getElementById('start').selectedIndex = 0;
-        document.getElementById('end').selectedIndex = 0;
-        for (m of markerArray)
-            m.setMap(null);
-        m.length = 0;
-        directionsRenderer.setDirections({routes: []});
-    });
-    */
-
-    var currLoc;
-    var locArray = [];
     if (navigator.geolocation) {
         var markerImage = {
             url: './img/icons/marker.svg',
@@ -85,17 +158,15 @@ function calculateAndDisplayRoute(directionsRenderer, directionsService, markerA
         markerArray[i].setMap(null);
     }
 
-    // Retrieve the start and end locations and create a DirectionsRequest using
-    // WALKING directions.
     let startLoc = "";
-    if (document.getElementById('start').value == "" || document.getElementById('end').value == "") return;
-    if (document.getElementById('start').value == "myLoc") {
+    if (document.getElementById('start').value == "" || document.getElementById('end').value == "") return; //not filled out yet so dont run
+    if (document.getElementById('start').value == "myLoc") { //for current location
         startLoc = curPosCoords;
     } else startLoc = document.getElementById('start').value;
     directionsService.route({
         origin: startLoc,
         destination: document.getElementById('end').value,
-        travelMode: 'WALKING'
+        travelMode: 'WALKING' //always walking
     }, function(response, status) {
         // Route the directions and pass the response to a function to create
         // markers for each step.

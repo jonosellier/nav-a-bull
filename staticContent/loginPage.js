@@ -7,6 +7,27 @@ function moveTo(pos) {
     document.getElementsByClassName('text-btn')[pos].classList.remove('inactive');
 }
 
+function verifyUname() {
+    if (document.getElementById("suForm").elements.suuser.value == "abc") return false;
+    else return true;
+}
+
+function verifyPWC() {
+    if (document.getElementById("suForm").elements.supw.value != document.getElementById("suForm").elements.supwc.value) return false;
+    else return true;
+}
+
+function verify() {
+    if (verifyUname() && verifyPWC()) untoast(0);
+    else {
+        let msg = "";
+        if (!verifyUname()) msg += "Username is already taken";
+        if (!verifyUname() && !verifyPWC()) msg += "<br>";
+        if (!verifyPWC()) msg += "Passwords do not match";
+        toast(msg, "error");
+    }
+}
+
 function pageLoaded() {
     getTheme();
 }
