@@ -56,10 +56,12 @@
 
 #map {
     position: fixed;
-    height: calc(100% - 4em);
-    top: 0;
-    left: 0;
+    width: 142vmax;
+    height: 142vmax;
+    top: calc(-71vmax + 50%);
+    left: calc(-71vmax + 50%);
     background-color: aqua;
+    transition: 0.25s;
 }
 
 
@@ -69,6 +71,11 @@
     -webkit-tap-highlight-color: rgba(255, 255, 255, 0) !important;
     -webkit-focus-ring-color: rgba(255, 255, 255, 0) !important;
     outline: none !important;
+}
+
+*[disabled] {
+    color: #88888888 !important;
+    border-color: #88888888 !important;
 }
 
 html,
@@ -373,6 +380,18 @@ h5 {
     display: block;
     position: absolute;
     bottom: 6.5em;
+    right: 1em;
+    background-color: var(--mdc-theme-primary);
+    border-radius: 100%;
+    box-shadow: 0 0 0.5em 0.25em var(--shadow-color);
+    width: 2.5em;
+    height: 2.5em;
+}
+
+#rotate-btn {
+    display: block;
+    position: absolute;
+    bottom: 9.5em;
     right: 1em;
     background-color: var(--mdc-theme-primary);
     border-radius: 100%;

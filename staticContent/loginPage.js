@@ -18,13 +18,17 @@ function verifyPWC() {
 }
 
 function verify() {
-    if (verifyUname() && verifyPWC()) untoast(0);
-    else {
+    let btn = document.getElementById("suBtn");
+    if (verifyUname() && verifyPWC()) {
+        untoast(0);
+        btn.disabled = false;
+    } else {
         let msg = "";
         if (!verifyUname()) msg += "Username is already taken";
         if (!verifyUname() && !verifyPWC()) msg += "<br>";
         if (!verifyPWC()) msg += "Passwords do not match";
         toast(msg, "error");
+        btn.disabled = true;
     }
 }
 
