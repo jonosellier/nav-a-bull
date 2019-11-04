@@ -222,6 +222,7 @@ function attachInstructionText(stepDisplay, marker, text, map) {
 }
 
 function pageLoaded() {
+    showLoggedInContent();
     getTheme();
     showHideNav();
 }

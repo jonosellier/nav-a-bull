@@ -95,4 +95,5 @@ function pageLoaded() {
         .then((list) => attachListeners(list));
     populateLocations();
     populateCategories();
+    showLoggedInContent();
 }

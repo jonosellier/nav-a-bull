@@ -6,11 +6,13 @@
 </head>
 
 <body onload="pageLoaded()">
-<%-`<script>localStorage.setItem("currLogin", "${data}")</script>`%>
-    <div class="app-content">
-    <h1>Logging you in</h1>
-    </div>
-    <script>window.location.replace("/")</script>
+    <%-`<script>localStorage.setItem("currLogin", '${data}'); localStorage.setItem("loggedIn", "true");</script>`%>
+        <div class="app-content">
+            <h1>Logging you in</h1>
+        </div>
+        <script>
+            window.location.replace("/")
+        </script>
 </body>
 
 </html>
