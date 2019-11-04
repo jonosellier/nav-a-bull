@@ -73,15 +73,14 @@ app.post('/doLogin', async(req, res) => {
         values: [user]
     };
 
+    // 
     const { rows } = await client.query(loggingin.text, loggingin.values);
-    console.log(rows[0]);
 
     try {
         if (bcrypt.compareSync(pw, rows[0].password)) {
             //login success
             const guid = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15); //random string
             //store username and guid in DB here
-            console.log("Login success!");
             const dataStr = `{'username':'${user}','uid':'${guid}'}`;
             res.render('handlingLogin', { data: dataStr }, function(err, html) {
                 res.redirect('/');
@@ -106,6 +105,7 @@ app.post('/doSignUp', async(req, res) => {
     const question = "SELECT username, password FROM users WHERE username = $1";
     const value = [user];
     const output = await client.query(question, value);
+
     //This if statement only works if the username isn't taken.
     if (output.rowCount == 0) {
         const pw = req.body.supw;
@@ -127,12 +127,12 @@ app.post('/doSignUp', async(req, res) => {
             res.render('handlingLogin', { data: dataStr }, function(err, html) {
                 res.send(html);
             });
-        } else res.send("Bad");
+        } else res.redirect('/login');
 
         //Test stuff. This prints out all the rows.
         // const data = res.rows
         // data.forEach(row => console.log(row))
-    } else res.send("Bad");
+    } else res.redirect('/login');
 });
 
 //API to check for valid login
