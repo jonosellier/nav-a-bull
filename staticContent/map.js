@@ -247,5 +247,10 @@ async function populateLocations() {
 
 function toggleRotation() {
     mapRotated = !mapRotated;
-    if (!mapRotated) document.getElementById("map").style.transform = `rotate(0deg)`;
+    if (mapRotated) {
+        document.getElementById('rotate-btn').innerHTML = 'near_me';
+    } else {
+        document.getElementById('rotate-btn').innerHTML = 'navigation';
+        document.getElementById("map").style.transform = `rotate(0deg)`;
+    }
 }
