@@ -16,7 +16,7 @@
     --mdc-theme-on-primary: #8f8f8f;
     --mdc-theme-text-primary-on-light: #000000;
     --mdc-theme-text-icon-on-background: #808080;
-    --shadow-color: #11111100;
+    --shadow-color: #ffffff00;
 }
 
 .mdc-top-app-bar__title {
@@ -452,6 +452,7 @@ h5 {
 .mdc-button--outlined {
     border-color: var(--mdc-theme-secondary) !important;
     color: var(--mdc-theme-secondary) !important;
+    width: -webkit-fill-available;
 }
 
 .form-input {
@@ -504,8 +505,8 @@ h5 {
 }
 
 #add-place-popup {
-    background: #fff;
-    box-shadow: 0 0 1em 1em rgba(0, 0, 0, 0.13);
+    background: var(--mdc-theme-primary);
+    box-shadow: 0 0 1em 1emvar(--shadow-color);
     display: none;
     margin-left: 5vw;
     margin-right: 5vw;
@@ -513,14 +514,18 @@ h5 {
     top: 20vh;
     padding: 1vh 2vw 5vh 2vw;
     z-index: 100;
+    width: -webkit-fill-available;
+    border-radius: 0.25em;
 }
 
 #remove-place-popup {
-    background: #fff;
-    box-shadow: 0 0 1em 1em rgba(0, 0, 0, 0.13);
+    background: var(--mdc-theme-primary);
+    box-shadow: 0 0 1em 1em var(--shadow-color);
     display: none;
     position: absolute;
     z-index: 100;
+    height: 48px;
+}
 
 input {
     color: var(--mdc-theme-on-primary);
@@ -547,4 +552,24 @@ input {
 
 .mdc-card button {
     margin: 1em;
+}
+
+.noborder {
+    border: none;
+    margin: 1em;
+}
+
+.popupBtn {
+    margin-top: 1em;
+}
+
+.menuPopupBtn {
+    margin: 0;
+    padding: 16px;
+    width: 100vw;
+}
+
+.errorTxt {
+    color: rgba(179, 0, 0, 0.63) !important;
+    font-weight: bold;
 }

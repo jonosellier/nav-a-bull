@@ -46,7 +46,7 @@ const onClickAddPlace = () => {
 
 // Add event listener to each fav list item
 const attachListeners = (list) => {
-    for (i=0; i<list.length; i++) {
+    for (i = 0; i < list.length; i++) {
         const l = list[i];
         l.addEventListener('click', (event) => {
             // Only perform action if the element tapped was the text or whitespace in the list item
@@ -64,7 +64,7 @@ const onClickFavMenu = (elem, loc, cat) => {
     // Make popup appear next to the more_vert menu button which was pressed
     popup.style.display = 'block';
     popup.style.top = `${rect.top}px`;
-    popup.style.right = `${window.innerWidth-rect.left}px`;
+    popup.style.right = `0px`;
     // Darken the background
     document.getElementById('darken-bg').style.display = 'block';
     // Populate the form to make a POST request to remove location from favorites
@@ -84,6 +84,7 @@ function closePopups() {
     document.getElementById('remove-place-popup').style.display = 'none';
     document.getElementById('add-place-popup').style.display = 'none';
     document.getElementById('darken-bg').style.display = 'none';
+    document.getElementById("nav-panel").style.left = "-100%";
 }
 
 function pageLoaded() {

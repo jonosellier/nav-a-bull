@@ -31,15 +31,15 @@
     </div>
     <div id="add-place-popup" class="hide">
         <h3>Add A Place</h3>
-        <form method="POST" action="/favorites">
+        <form class="fw-form" method="POST" action="/favorites">
             <select id="place" name="place"></select>
             <select id="category" name="category"></select>
-            <input type="submit">
+            <button type="submit" class="mdc-button mdc-button--outlined popupBtn">Add To Favorites</button>
         </form>
     </div>
     <div id="remove-place-popup">
         <form method="POST" action="/favorites-remove">
-            <input type="submit" value="Remove from favorites">
+            <button type="submit" class="mdc-button mdc-button--outlined noborder menuPopupBtn errorTxt" id="suBtn">Remove</button>
             <input id="place-remove" type="hidden" name="location" value="val1">
             <input id="category-remove" type="hidden" name="category" value="val1">
         </form>
