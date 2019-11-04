@@ -145,7 +145,7 @@ app.get('/places.json', (req, response) => {
 });
 
 /*
- * TODO: Use user ID as query param
+ * TODO: Use GUID as query param
  */
 app.get('/datafile.json', (req, response) => {
     const out = client.query({
@@ -163,7 +163,7 @@ app.get('/categories.json', (req, response) => {
         .then(res => response.send(res.rows));
 });
 
-app.post('/favorites', (req, response) => {
+app.post('/favorites-add', (req, response) => {
     const out = client.query({
         rowMode: 'array',
         text: 'SELECT addPlace($1, $2, $3);',
