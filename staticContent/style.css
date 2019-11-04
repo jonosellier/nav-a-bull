@@ -41,6 +41,15 @@
     color: var(--mdc-theme-secondary);
 }
 
+#clear-route {
+    border: none;
+    border-radius: 10px;
+    height: 30px;
+    top: 20vh;
+    width: 60px;
+    position: fixed;
+}
+
 
 /* Always set the map height explicitly to define the size of the div
 * element that contains the map. */
@@ -493,6 +502,25 @@ h5 {
 .mdc-drawer .mdc-list-item {
     color: var(--mdc-theme-on-primary);
 }
+
+#add-place-popup {
+    background: #fff;
+    box-shadow: 0 0 1em 1em rgba(0, 0, 0, 0.13);
+    display: none;
+    margin-left: 5vw;
+    margin-right: 5vw;
+    position: absolute;
+    top: 20vh;
+    padding: 1vh 2vw 5vh 2vw;
+    z-index: 100;
+}
+
+#remove-place-popup {
+    background: #fff;
+    box-shadow: 0 0 1em 1em rgba(0, 0, 0, 0.13);
+    display: none;
+    position: absolute;
+    z-index: 100;
 
 input {
     color: var(--mdc-theme-on-primary);
