@@ -486,21 +486,21 @@ h5 {
 
 #add-place-popup {
     background: #fff;
-    box-shadow: 0 0 1em 1em #aaa;
+    box-shadow: 0 0 1em 1em rgba(0, 0, 0, 0.13);
     display: none;
+    margin-left: 5vw;
+    margin-right: 5vw;
     position: absolute;
     top: 20vh;
-    padding-bottom: 5vh;
+    padding: 1vh 2vw 5vh 2vw;
     z-index: 100;
 }
 
 #remove-place-popup {
     background: #fff;
-    box-shadow: 0 0 1em 1em #aaa;
+    box-shadow: 0 0 1em 1em rgba(0, 0, 0, 0.13);
     display: none;
     position: absolute;
-    top: 20vh;
-    padding-bottom: 5vh;
     z-index: 100;
 
 input {

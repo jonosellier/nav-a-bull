@@ -1,3 +1,6 @@
+var clickX;
+var clickY;
+
 async function populateFavs() {
     let page = document.getElementById("place-list");
     const res = await fetch("/datafile.json");
@@ -6,7 +9,7 @@ async function populateFavs() {
     for (const place in favObj) {
         page.innerHTML += `<h3>${place}</h3>`;
         if (Array.isArray(favObj[place]))
-            for (const e of favObj[place]) page.innerHTML += `<li id="favorite-list-item" class="mdc-list-item"><span class="mdc-list-item__graphic material-icons" aria-hidden="true">star</span> <span id="favorite-list-item-text" class="mdc-list-item__text">${e}</span> <span aria-hidden="true" class="mdc-list-item__meta"><button class="mdc-icon-button material-icons" onclick="onClickFavMenu('${e}', '${place}')">more_vert</button></span> </li>`;
+            for (const e of favObj[place]) page.innerHTML += `<li id="favorite-list-item" class="mdc-list-item"><span class="mdc-list-item__graphic material-icons" aria-hidden="true">star</span> <span id="favorite-list-item-text" class="mdc-list-item__text">${e}</span> <span aria-hidden="true" class="mdc-list-item__meta"><button class="mdc-icon-button material-icons" onclick="onClickFavMenu(this, '${e}', '${place}')">more_vert</button></span> </li>`;
         else page.innerHTML += `<li class="mdc-list-item"><h2><span class="material-icons h2-icon" aria-hidden="true">${place.toLowerCase()}</span> ${favObj[place]}</h2> <span aria-hidden="true" class="mdc-list-item__meta"><button class="mdc-icon-button material-icons" onclick="onClickFavMenu(${'eh'})">more_vert</button></span></li>`;
     }
 }
@@ -35,9 +38,6 @@ async function populateCategories() {
     document.getElementById('category').innerHTML = `<option value="empty cat" disabled selected hidden>Select a category</option>` + contents;
 }
 
-/*
- * TODO: Add element to darken screen behind the popup
- */
 // show/hide "Add Place" popup
 const onClickAddPlace = () => {
     document.getElementById('add-place-popup').style.display = 'block';
@@ -58,9 +58,16 @@ const attachListeners = (list) => {
 }
 
 // Action when more_vert menu button on each fav is pressed
-const onClickFavMenu = (loc, cat) => {
-    document.getElementById('remove-place-popup').style.display = 'block';
+const onClickFavMenu = (elem, loc, cat) => {
+    rect = elem.getBoundingClientRect();
+    popup = document.getElementById('remove-place-popup');
+    // Make popup appear next to the more_vert menu button which was pressed
+    popup.style.display = 'block';
+    popup.style.top = `${rect.top}px`;
+    popup.style.right = `${window.innerWidth-rect.left}px`;
+    // Darken the background
     document.getElementById('darken-bg').style.display = 'block';
+    // Populate the form to make a POST request to remove location from favorites
     updateElem('place-remove', loc);
     updateElem('category-remove', cat);
 }
