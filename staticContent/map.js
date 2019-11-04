@@ -144,15 +144,10 @@ function initMap() {
 
     if (window.DeviceOrientationEvent) {
         window.addEventListener('deviceorientation', function(e) {
-            let compassdir;
-
-            if (event.webkitCompassHeading) {
-                // Apple works only with this, alpha doesn't work
-                compassdir = event.webkitCompassHeading;
-            } else compassdir = event.alpha;
-
+            let compassdir = 0;
+            if (coordinates) compassdir = coordinates.heading;
             if (mapRotated) {
-                document.getElementById("map").style.transform = `rotate(${compassdir-90}deg)`;
+                document.getElementById("map").style.transform = `rotate(${compassdir}deg)`;
                 recenterMap();
             }
         });
