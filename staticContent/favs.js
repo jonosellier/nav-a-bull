@@ -42,7 +42,7 @@ async function populateCategories() {
 const onClickAddPlace = () => {
     document.getElementById('add-place-popup').style.display = 'block';
     document.getElementById('darken-bg').style.display = 'block';
-}
+};
 
 // Add event listener to each fav list item
 const attachListeners = (list) => {
@@ -51,11 +51,11 @@ const attachListeners = (list) => {
         l.addEventListener('click', (event) => {
             // Only perform action if the element tapped was the text or whitespace in the list item
             if (event.target.id.includes('favorite-list-item')) {
-                console.log(event.target)
+                console.log(event.target);
             }
         });
     }
-}
+};
 
 // Action when more_vert menu button on each fav is pressed
 const onClickFavMenu = (elem, loc, cat) => {
@@ -70,14 +70,14 @@ const onClickFavMenu = (elem, loc, cat) => {
     // Populate the form to make a POST request to remove location from favorites
     updateElem('place-remove', loc);
     updateElem('category-remove', cat);
-}
+};
 
 // Add values to form for remove favLocation query
 const updateElem = (elem, val) => {
     return new Promise((res, rej) => {
         document.getElementById(elem).value = val;
     });
-}
+};
 
 // When darkened background is clicked, close any popup
 function closePopups() {
