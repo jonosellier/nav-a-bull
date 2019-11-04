@@ -152,7 +152,7 @@ function initMap() {
             } else compassdir = event.alpha;
 
             if (mapRotated) {
-                document.getElementById("map").style.transform = `rotate(${compassdir}deg)`;
+                document.getElementById("map").style.transform = `rotate(${compassdir-90}deg)`;
                 recenterMap();
             }
         });
