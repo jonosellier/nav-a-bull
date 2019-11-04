@@ -1,6 +1,7 @@
 var map;
 var curPosCoords;
 var curPosMarker;
+var mapRotated = false;
 
 function initMap() {
     var markerArray = [];
@@ -140,6 +141,22 @@ function initMap() {
     } else alert("Location permission needed. Please allow and restart the app.");
 
     populateLocations();
+
+    if (window.DeviceOrientationEvent) {
+        window.addEventListener('deviceorientation', function(e) {
+            let compassdir;
+
+            if (event.webkitCompassHeading) {
+                // Apple works only with this, alpha doesn't work
+                compassdir = event.webkitCompassHeading;
+            } else compassdir = event.alpha;
+
+            if (mapRotated) {
+                document.getElementById("map").style.transform = `rotate(${compassdir}deg)`;
+                recenterMap();
+            }
+        });
+    }
 }
 
 function recenterMap() {
@@ -226,4 +243,9 @@ async function populateLocations() {
     document.getElementById('end').innerHTML = `
     <option value="" disabled selected hidden>I'm going to...</option>
     ` + contents;
+}
+
+function toggleRotation() {
+    mapRotated = !mapRotated;
+    if (!mapRotated) document.getElementById("map").style.transform = `rotate(0deg)`;
 }
