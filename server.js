@@ -75,18 +75,25 @@ app.post('/doLogin', async(req, res) => {
 
     const { rows } = await client.query(loggingin.text, loggingin.values);
     console.log(rows[0]);
-    if (bcrypt.compareSync(pw, rows[0].password)) {
-        //login success
-        const guid = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15); //random string
-        //store username and guid in DB here
-        console.log("Login success!");
-        const dataStr = `{'username':'${user}','uid':'${guid}'}`;
-        res.render('handlingLogin', { data: dataStr }, function(err, html) {
-            res.send(html);
-        });
-    } else {
-        console.log("incorrect");
-        res.send("Incorrect");
+
+    try {
+        if (bcrypt.compareSync(pw, rows[0].password)) {
+            //login success
+            const guid = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15); //random string
+            //store username and guid in DB here
+            console.log("Login success!");
+            const dataStr = `{'username':'${user}','uid':'${guid}'}`;
+            res.render('handlingLogin', { data: dataStr }, function(err, html) {
+                res.redirect('/');
+            });
+        }
+        else {
+            throw 'bad credentials'
+        }
+    }
+    catch(e) {
+        console.log(e);
+        res.redirect('/login');
     }
 });
 
