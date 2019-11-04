@@ -144,8 +144,10 @@ function initMap() {
 
     if (window.DeviceOrientationEvent) {
         window.addEventListener('deviceorientation', function(e) {
-            let compassdir = 0;
-            if (coordinates) compassdir = coordinates.heading;
+            let compassdir;
+
+            compassdir = event.alpha;
+
             if (mapRotated) {
                 document.getElementById("map").style.transform = `rotate(${compassdir}deg)`;
                 recenterMap();
