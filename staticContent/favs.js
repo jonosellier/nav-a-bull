@@ -2,8 +2,9 @@ var clickX;
 var clickY;
 
 async function populateFavs() {
+    const loginInfo = JSON.parse(localStorage.getItem('currLogin'));
     let page = document.getElementById("place-list");
-    const res = await fetch("/datafile.json");
+    const res = await fetch("/datafile.json?id=" + loginInfo.uid);
     const favObj = await res.json();
     page.innerHTML = '';
     for (const place in favObj) {
@@ -87,6 +88,12 @@ function closePopups() {
     document.getElementById("nav-panel").style.left = "-100%";
 }
 
+function attachID() {
+    const loginInfo = JSON.parse(localStorage.getItem('currLogin'));
+    document.getElementById('idHolder').value = loginInfo.uid;
+    document.getElementById('idHolder2').value = loginInfo.uid;
+}
+
 function pageLoaded() {
     getTheme();
     showHideNav();
@@ -96,4 +103,5 @@ function pageLoaded() {
     populateLocations();
     populateCategories();
     showLoggedInContent();
+    attachID();
 }

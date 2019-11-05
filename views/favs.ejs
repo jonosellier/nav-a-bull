@@ -34,7 +34,7 @@
         <form class="fw-form" method="POST" action="/favorites-add">
             <select id="place" name="place"></select>
             <select id="category" name="category"></select>
-            <input type="text" name="id" id="idHolder">
+            <input type="text" name="id" id="idHolder" class="hidden-field">
             <button type="submit" class="mdc-button mdc-button--outlined popupBtn">Add To Favorites</button>
         </form>
     </div>
@@ -43,6 +43,7 @@
             <button type="submit" class="mdc-button mdc-button--outlined noborder menuPopupBtn errorTxt" id="suBtn">Remove</button>
             <input id="place-remove" type="hidden" name="location" value="val1">
             <input id="category-remove" type="hidden" name="category" value="val1">
+            <input type="text" name="id" id="idHolder2" class="hidden-field">
         </form>
     </div>
 </body>

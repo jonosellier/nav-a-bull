@@ -593,3 +593,7 @@ input {
 .pic-container {
     padding: 0.5em;
 }
+
+.hidden-field {
+    display: none !important;
+}
