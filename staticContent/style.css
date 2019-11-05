@@ -16,7 +16,7 @@
     --mdc-theme-on-primary: #8f8f8f;
     --mdc-theme-text-primary-on-light: #000000;
     --mdc-theme-text-icon-on-background: #808080;
-    --shadow-color: #11111100;
+    --shadow-color: #ffffff00;
 }
 
 .mdc-top-app-bar__title {
@@ -25,15 +25,15 @@
 
 .transparent {
     background-color: rgba(255, 255, 255, 0) !important;
-    box-shadow: none;
+    box-shadow: none !important;
 }
 
 .no-menu-button {
     margin: 0.25em;
     background-color: var(--mdc-theme-primary);
     border-radius: 100%;
-    box-shadow: none;
     position: fixed;
+    box-shadow: 0 0 0.5em 0.25em var(--shadow-color);
 }
 
 .mdc-drawer .mdc-list-item--activated,
@@ -55,11 +55,12 @@
 * element that contains the map. */
 
 #map {
+    display: block;
     position: fixed;
-    width: 142vmax;
-    height: 142vmax;
-    top: calc(-71vmax + 50%);
-    left: calc(-71vmax + 50%);
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
     background-color: aqua;
     transition: 0.25s;
 }
@@ -344,6 +345,16 @@ h4 {
     font-weight: normal;
     color: var(--mdc-theme-secondary);
     text-align: center;
+    align-self: baseline;
+}
+
+h6 {
+    font-family: 'Roboto', sans-serif;
+    font-weight: normal;
+    color: var(--mdc-theme-secondary);
+    text-align: left;
+    display: inline-block;
+    font-size: 1em;
 }
 
 h5 {
@@ -389,7 +400,7 @@ h5 {
 }
 
 #rotate-btn {
-    display: block;
+    display: none;
     position: absolute;
     bottom: 9.5em;
     right: 1em;
@@ -452,6 +463,7 @@ h5 {
 .mdc-button--outlined {
     border-color: var(--mdc-theme-secondary) !important;
     color: var(--mdc-theme-secondary) !important;
+    width: -webkit-fill-available;
 }
 
 .form-input {
@@ -489,8 +501,8 @@ h5 {
     padding: 0;
     display: inline-block;
     background-color: #cccccc;
-    width: 6em;
-    height: 6em;
+    width: 3em;
+    height: 3em;
     border-radius: 50%;
 }
 
@@ -504,8 +516,8 @@ h5 {
 }
 
 #add-place-popup {
-    background: #fff;
-    box-shadow: 0 0 1em 1em rgba(0, 0, 0, 0.13);
+    background: var(--mdc-theme-primary);
+    box-shadow: 0 0 1em 1emvar(--shadow-color);
     display: none;
     margin-left: 5vw;
     margin-right: 5vw;
@@ -513,14 +525,18 @@ h5 {
     top: 20vh;
     padding: 1vh 2vw 5vh 2vw;
     z-index: 100;
+    width: -webkit-fill-available;
+    border-radius: 0.25em;
 }
 
 #remove-place-popup {
-    background: #fff;
-    box-shadow: 0 0 1em 1em rgba(0, 0, 0, 0.13);
+    background: var(--mdc-theme-primary);
+    box-shadow: 0 0 1em 1em var(--shadow-color);
     display: none;
     position: absolute;
     z-index: 100;
+    height: 48px;
+}
 
 input {
     color: var(--mdc-theme-on-primary);
@@ -547,4 +563,33 @@ input {
 
 .mdc-card button {
     margin: 1em;
+}
+
+.noborder {
+    border: none;
+    margin: 1em;
+}
+
+.popupBtn {
+    margin-top: 1em;
+}
+
+.menuPopupBtn {
+    margin: 0;
+    padding: 16px;
+    width: 100vw;
+}
+
+.errorTxt {
+    color: rgba(179, 0, 0, 0.63) !important;
+    font-weight: bold;
+}
+
+.showIfLoggedIn,
+.showIfLoggedOut {
+    display: none;
+}
+
+.pic-container {
+    padding: 0.5em;
 }

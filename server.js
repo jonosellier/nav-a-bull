@@ -73,26 +73,20 @@ app.post('/doLogin', async(req, res) => {
         values: [user]
     };
 
-    // 
     const { rows } = await client.query(loggingin.text, loggingin.values);
-
-    try {
-        if (bcrypt.compareSync(pw, rows[0].password)) {
-            //login success
-            const guid = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15); //random string
-            //store username and guid in DB here
-            const dataStr = `{'username':'${user}','uid':'${guid}'}`;
-            res.render('handlingLogin', { data: dataStr }, function(err, html) {
-                res.redirect('/');
-            });
-        }
-        else {
-            throw 'bad credentials'
-        }
-    }
-    catch(e) {
-        console.log(e);
-        res.redirect('/login');
+    console.log(rows[0]);
+    if (bcrypt.compareSync(pw, rows[0].password)) {
+        //login success
+        const guid = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15); //random string
+        //store username and guid in DB here
+        console.log("Login success!");
+        const dataStr = `{"username":"${user}","uid":"${guid}"}`;
+        res.render('handlingLogin', { data: dataStr }, function(err, html) {
+            res.send(html);
+        });
+    } else {
+        console.log("incorrect");
+        res.send("Incorrect");
     }
 });
 
@@ -123,7 +117,7 @@ app.post('/doSignUp', async(req, res) => {
             };
             const insRes = await client.query(insertion);
             console.log("Signup and Login success!");
-            const dataStr = `{'username':'${user}','uid':'${guid}'}`;
+            const dataStr = `{"username":"${user}","uid":"${guid}"}`;
             res.render('handlingLogin', { data: dataStr }, function(err, html) {
                 res.send(html);
             });
@@ -156,34 +150,38 @@ app.get('/places.json', (req, response) => {
  */
 app.get('/datafile.json', (req, response) => {
     const out = client.query({
-        rowMode: 'array',
-        text: 'SELECT getfavloc($1);',
-        values: ['1']})
+            rowMode: 'array',
+            text: 'SELECT getfavloc($1);',
+            values: ['1']
+        })
         .then(res => response.send(JSON.parse(res.rows[0])));
 });
 
 app.get('/categories.json', (req, response) => {
     const out = client.query({
-        rowMode: 'array',
-        text: 'SELECT DISTINCT "category" FROM "favoriteLocations" WHERE "userId" = ($1);',
-        values: ['1']})
+            rowMode: 'array',
+            text: 'SELECT DISTINCT "category" FROM "favoriteLocations" WHERE "userId" = ($1);',
+            values: ['1']
+        })
         .then(res => response.send(res.rows));
 });
 
 app.post('/favorites-add', (req, response) => {
     const out = client.query({
-        rowMode: 'array',
-        text: 'SELECT addPlace($1, $2, $3);',
-        values: ['1', req.body.place, req.body.category]})
+            rowMode: 'array',
+            text: 'SELECT addPlace($1, $2, $3);',
+            values: ['1', req.body.place, req.body.category]
+        })
         .catch(e => console.log(e))
         .finally(response.redirect('/favorites'));
 });
 
 app.post('/favorites-remove', (req, response) => {
     const out = client.query({
-        rowMode: 'array',
-        text: 'SELECT removeFavLoc3($1, $2, $3);',
-        values: ['1', req.body.location, req.body.category]})
+            rowMode: 'array',
+            text: 'SELECT removeFavLoc3($1, $2, $3);',
+            values: ['1', req.body.location, req.body.category]
+        })
         .catch(e => console.log(e))
         .finally(response.redirect('/favorites'));
 });

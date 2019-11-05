@@ -41,3 +41,24 @@ function untoast(time = 0) {
         document.getElementById('toast').className = '';
     }, time);
 }
+
+function showLoggedInContent() {
+    if (localStorage.getItem('loggedIn') == "true") {
+        let elem = document.querySelectorAll('.showIfLoggedIn');
+        for (let i = 0; i < elem.length; i++) elem[i].style.display = 'flex';
+        const loginInfo = JSON.parse(localStorage.getItem('currLogin'));
+        document.querySelector('#usernameLabel').innerHTML = loginInfo.username;
+    } else {
+        let elem = document.querySelectorAll('.showIfLoggedIn');
+        for (let i = 0; i < elem.length; i++) elem[i].style.display = 'none';
+        elem = document.querySelectorAll('.showIfLoggedOut');
+        for (let i = 0; i < elem.length; i++) elem[i].style.display = 'flex';
+    }
+}
+
+function logout() {
+    localStorage.setItem('loggedIn', 'false');
+    localStorage.setItem('currLogin', '');
+    showHideNav();
+    showLoggedInContent();
+}

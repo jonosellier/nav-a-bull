@@ -146,13 +146,10 @@ function initMap() {
         window.addEventListener('deviceorientation', function(e) {
             let compassdir;
 
-            if (event.webkitCompassHeading) {
-                // Apple works only with this, alpha doesn't work
-                compassdir = event.webkitCompassHeading;
-            } else compassdir = event.alpha;
+            compassdir = event.alpha + 90;
 
             if (mapRotated) {
-                document.getElementById("map").style.transform = `rotate(${compassdir-90}deg)`;
+                document.getElementById("map").style.transform = `rotate(${compassdir}deg)`;
                 recenterMap();
             }
         });
@@ -225,6 +222,7 @@ function attachInstructionText(stepDisplay, marker, text, map) {
 }
 
 function pageLoaded() {
+    showLoggedInContent();
     getTheme();
     showHideNav();
 }
