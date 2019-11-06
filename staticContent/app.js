@@ -61,4 +61,5 @@ function logout() {
     localStorage.setItem('currLogin', '');
     showHideNav();
     showLoggedInContent();
+    window.location.href = "/";
 }

@@ -2,9 +2,22 @@ var map;
 var curPosCoords;
 var curPosMarker;
 var mapRotated = false;
+var directionsRenderer;
+var markerArray = [];
+
+window.onhashchange = handleHashChange;
+
+function handleHashChange() {
+    console.log("Hash changed");
+    if (location.hash == '') {
+        for (var i = 0; i < markerArray.length; i++) {
+            markerArray[i].setMap(null);
+        }
+        directionsRenderer.set('directions', null);
+    }
+}
 
 function initMap() {
-    var markerArray = [];
 
     // Instantiate a directions service.
     var directionsService = new google.maps.DirectionsService();
@@ -108,7 +121,7 @@ function initMap() {
     }
 
     // Create a renderer for directions and bind it to the map.
-    var directionsRenderer = new google.maps.DirectionsRenderer({ map: map });
+    directionsRenderer = new google.maps.DirectionsRenderer({ map: map });
 
     // Instantiate an info window to hold step text.
     var stepDisplay = new google.maps.InfoWindow();
@@ -117,6 +130,7 @@ function initMap() {
     calculateAndDisplayRoute(directionsRenderer, directionsService, markerArray, stepDisplay, map);
     // Listen to change events from the start and end lists.
     var onChangeHandler = function() {
+        window.location.href = '/#directions';
         calculateAndDisplayRoute(
             directionsRenderer, directionsService, markerArray, stepDisplay, map);
     };
