@@ -1,0 +1,18 @@
+<html>
+
+<head>
+
+</head>
+
+<body>
+    <h1 id="heading">undefined</h1>
+    <script>
+        if ('ondeviceorientation' in window) {
+            window.addEventListener('deviceorientation', function(e) {
+                document.getElementById('heading').innerHTML = e.webkitCompassHeading;
+            });
+        }
+    </script>
+</body>
+
+</html>
