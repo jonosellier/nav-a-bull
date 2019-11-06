@@ -143,10 +143,10 @@ function initMap() {
     populateLocations();
 
     if (window.DeviceOrientationEvent) {
-        window.addEventListener('deviceorientation', function(e) {
+        window.addEventListener('deviceorientationabsolute', function(e) {
             let compassdir;
 
-            compassdir = event.alpha + 90;
+            compassdir = event.alpha;
 
             if (mapRotated) {
                 document.getElementById("map").style.transform = `rotate(${compassdir}deg)`;
