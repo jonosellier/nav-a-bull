@@ -4,6 +4,8 @@ var curPosMarker;
 var mapRotated = false;
 var directionsRenderer;
 var markerArray = [];
+var oldCompassDir = 0;
+var mapRotation = 0;
 
 window.onhashchange = handleHashChange;
 
@@ -158,12 +160,13 @@ function initMap() {
 
     if (window.DeviceOrientationEvent) {
         window.addEventListener('deviceorientationabsolute', function(e) {
-            let compassdir;
-
-            compassdir = event.alpha;
-
+            let compassDir = event.alpha;
+            let delta = compassDir - oldCompassDir; //get the delta
+            if (delta >= 180) delta -= 360; //account for crossing over north
+            oldCompassDir = compassDir;
+            mapRotation += delta;
             if (mapRotated) {
-                document.getElementById("map").style.transform = `rotate(${compassdir}deg)`;
+                document.getElementById("map").style.transform = `rotate(${mapRotation}deg)`;
                 recenterMap();
             }
         });
