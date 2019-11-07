@@ -163,6 +163,7 @@ function initMap() {
             let compassDir = event.alpha;
             let delta = compassDir - oldCompassDir; //get the delta
             if (delta >= 180) delta -= 360; //account for crossing over north
+            if (delta <= -180) delta += 360;
             oldCompassDir = compassDir;
             mapRotation += delta;
             if (mapRotated) {
