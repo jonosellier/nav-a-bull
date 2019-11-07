@@ -376,6 +376,12 @@ h5 {
     padding: 0;
 }
 
+p {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1em;
+    color: var(--mdc-theme-on-primary);
+}
+
 .navbar-padding {
     padding-top: 3em;
 }
@@ -610,4 +616,15 @@ input {
 
 .mdc-icon-button:not(.mdc-ripple-upgraded):active::after {
     opacity: 0 !important;
+}
+
+.text-page * {
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+}
+
+.mdc-list-item a {
+    display: block;
+    color: inherit;
+    text-decoration: inherit;
 }
