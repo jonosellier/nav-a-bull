@@ -249,9 +249,20 @@ async function populateLocations() {
     const response = await fetch('/places.json');
     const placesArray = await response.json();
     let contents;
+    if (loginInfo != 0) {
+        const res = await fetch("/datafileWithID.json?id=" + loginInfo.uid);
+        const favObj = await res.json();
+        for (const cat in favObj) {
+            contents += `<optgroup label="${cat}">`;
+            for (const place of favObj[cat]) contents += `<option value="${place.code}">${place.name}</option>`;
+            contents += `</optgroup>`;
+        }
+        contents += `<optgroup label="All Places">`;
+    } else contents += `<optgroup label="Log in to add favorites">`;
     for (const place of placesArray) {
         contents += `<option value="${place.locationCode}">${place.name}</option>`;
     }
+    contents += `</optgroup>`;
     document.getElementById('start').innerHTML = `
     <option value="myLoc" disabled selected hidden>I'm coming from...</option>
     <option value="myLoc">Current Location</option>

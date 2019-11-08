@@ -2,7 +2,6 @@ var clickX;
 var clickY;
 
 async function populateFavs() {
-    const loginInfo = JSON.parse(localStorage.getItem('currLogin'));
     let page = document.getElementById("place-list");
     const res = await fetch("/datafile.json?id=" + loginInfo.uid);
     const favObj = await res.json();

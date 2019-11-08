@@ -166,6 +166,16 @@ app.get('/datafile.json', (req, response) => {
         .then(res => response.send(JSON.parse(res.rows[0])));
 });
 
+app.get('/datafileWithID.json', (req, response) => {
+    console.log("id is ", req.query.id);
+    const out = client.query({
+            rowMode: 'array',
+            text: 'SELECT getfavloc2($1);',
+            values: [req.query.id]
+        })
+        .then(res => response.send(JSON.parse(res.rows[0])));
+});
+
 /*
 app.get('/categories.json', (req, response) => {
     const out = client.query({

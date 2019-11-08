@@ -1,1 +1,9 @@
-[["Classes"], ["Events"], ["Food"], ["Parking"], ["Other"]]
+[
+    ["Home"],
+    ["Work"],
+    ["Classes"],
+    ["Events"],
+    ["Food"],
+    ["Parking"],
+    ["Other"]
+]
