@@ -6,30 +6,63 @@
 </head>
 
 <body>
-    <p>Sensitivity</p><input type="text" id="sens">
-    <p>Timeout (ms)</p><input type="text" id="time">
+    <p>Sensitivity</p><input type="text" id="sens" value="10">
+    <p>Timeout (ms)</p><input type="text" id="time" value="10">
     <button onclick="testShake()">Test</button>
     <p>Steps: <span id="step">0</span></p>
+    <button onclick="timer()">Timer</button>
+    <p id="log" style="font-size: 12px;"></p>
     <script>
-        var step = 0;
-
-        function testShake() {
-            step = 0;
-            var myShakeEvent = new Shake({
-                threshold: document.getElementById('sens').value, // optional shake strength threshold
-                timeout: document.getElementById('time').value // optional, determines the frequency of event generation
-            });
-
-            myShakeEvent.start();
-
-            document.getElementById('step').innerHTML = step;
-
-            window.addEventListener('shake', shakeEventDidOccur, false);
+        function log(m) {
+            document.getElementById('log').innerHTML += `<span>[${new Date()}] ${m}</span><br>`;
         }
 
-        function shakeEventDidOccur() {
-            step++;
+        // timer class - set period of time to detect and count shakes
+        class Timer extends Promise {
+            constructor (ms, callback) {
+                let haveTimeout = typeof ms === "number" && typeof callback === "function";
+                let init = haveTimeout ? callback : ms;
+                super((resolve, reject) => {
+                    init(resolve, reject);
+                    if (haveTimeout) {
+                        setTimeout(() => {
+                            reject("Timed out");
+                        }, ms);
+                    }
+                });
+            }
+        }
+
+        function testShake() {
+            // set shake event
+            var step = 0;
+            var myShakeEvent = new Shake({
+                threshold: 10,
+                timeout: 10
+            });
+            myShakeEvent.start();
             document.getElementById('step').innerHTML = step;
+            window.addEventListener('shake', shakeEventDidOccur, false);
+            
+            function shakeEventDidOccur() {
+                // when first shake is detected, start a timer and listen for other shakes
+                let s = new Timer(500, function(res, rej) {
+                    window.removeEventListener('shake', shakeEventDidOccur, false);
+                    window.addEventListener('shake', subsequentShakeEventDidOccur, false);
+                })
+                // when the timer ends, if the counted shakes exceeds a certain amount, do some action
+                s.catch(e => {
+                    window.removeEventListener('shake', subsequentShakeEventDidOccur, false);
+                    window.addEventListener('shake', shakeEventDidOccur, false);
+                    if (step > 8)
+                        alert(`Detected ${step} shakes`);
+                    step = 0;
+                });
+            }
+
+            function subsequentShakeEventDidOccur() {
+                step++;
+            }
         }
     </script>
 </body>
