@@ -1,3 +1,5 @@
+const loginInfo = getLoginInfo();
+
 // Check that service workers are supported
 if ('serviceWorker' in navigator) {
     // Use the window load event to keep the page load performant
@@ -61,4 +63,10 @@ function logout() {
     localStorage.setItem('currLogin', '');
     showHideNav();
     showLoggedInContent();
+    window.location.href = "/";
+}
+
+function getLoginInfo() {
+    if (localStorage.getItem("loggedIn") === "true") return JSON.parse(localStorage.getItem('currLogin'));
+    else return 0;
 }

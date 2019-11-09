@@ -2,9 +2,24 @@ var map;
 var curPosCoords;
 var curPosMarker;
 var mapRotated = false;
+var directionsRenderer;
+var markerArray = [];
+var oldCompassDir = 0;
+var mapRotation = 0;
+
+window.onhashchange = handleHashChange;
+
+function handleHashChange() {
+    console.log("Hash changed");
+    if (location.hash == '') {
+        for (var i = 0; i < markerArray.length; i++) {
+            markerArray[i].setMap(null);
+        }
+        directionsRenderer.set('directions', null);
+    }
+}
 
 function initMap() {
-    var markerArray = [];
 
     // Instantiate a directions service.
     var directionsService = new google.maps.DirectionsService();
@@ -108,7 +123,7 @@ function initMap() {
     }
 
     // Create a renderer for directions and bind it to the map.
-    var directionsRenderer = new google.maps.DirectionsRenderer({ map: map });
+    directionsRenderer = new google.maps.DirectionsRenderer({ map: map });
 
     // Instantiate an info window to hold step text.
     var stepDisplay = new google.maps.InfoWindow();
@@ -117,11 +132,9 @@ function initMap() {
     calculateAndDisplayRoute(directionsRenderer, directionsService, markerArray, stepDisplay, map);
     // Listen to change events from the start and end lists.
     var onChangeHandler = function() {
-        if (document.getElementById('start').selectedIndex != 0
-            && document.getElementById('end').selectedIndex != 0) {
-            calculateAndDisplayRoute(
-                directionsRenderer, directionsService, markerArray, stepDisplay, map);
-        }
+        window.location.href = '/#directions';
+        calculateAndDisplayRoute(
+            directionsRenderer, directionsService, markerArray, stepDisplay, map);
     };
     document.getElementById('start').addEventListener('change', onChangeHandler);
     document.getElementById('end').addEventListener('change', onChangeHandler);
@@ -146,13 +159,15 @@ function initMap() {
     populateLocations();
 
     if (window.DeviceOrientationEvent) {
-        window.addEventListener('deviceorientation', function(e) {
-            let compassdir;
-
-            compassdir = event.alpha + 90;
-
+        window.addEventListener('deviceorientationabsolute', function(e) {
+            let compassDir = event.alpha;
+            let delta = compassDir - oldCompassDir; //get the delta
+            if (delta >= 180) delta -= 360; //account for crossing over north
+            if (delta <= -180) delta += 360;
+            oldCompassDir = compassDir;
+            mapRotation += delta;
             if (mapRotated) {
-                document.getElementById("map").style.transform = `rotate(${compassdir}deg)`;
+                document.getElementById("map").style.transform = `rotate(${mapRotation}deg)`;
                 recenterMap();
             }
         });
@@ -237,7 +252,6 @@ function calculateAndDisplayRoute(directionsRenderer, directionsService, markerA
             
             showSteps(response, markerArray, stepDisplay, map);
             directionsRenderer.setDirections(response);
-            directionsRenderer.setMap(map);
         } else {
             window.alert('Directions request failed due to ' + status);
         }
@@ -278,9 +292,20 @@ async function populateLocations() {
     const response = await fetch('/places.json');
     const placesArray = await response.json();
     let contents;
+    if (loginInfo != 0) {
+        const res = await fetch("/datafileWithID.json?id=" + loginInfo.uid);
+        const favObj = await res.json();
+        for (const cat in favObj) {
+            contents += `<optgroup label="${cat}">`;
+            for (const place of favObj[cat]) contents += `<option value="${place.code}">${place.name}</option>`;
+            contents += `</optgroup>`;
+        }
+        contents += `<optgroup label="All Places">`;
+    } else contents += `<optgroup label="Log in to add favorites">`;
     for (const place of placesArray) {
         contents += `<option value="${place.locationCode}">${place.name}</option>`;
     }
+    contents += `</optgroup>`;
     document.getElementById('start').innerHTML = `
     <option value="myLoc" disabled selected hidden>I'm coming from...</option>
     <option value="myLoc">Current Location</option>
