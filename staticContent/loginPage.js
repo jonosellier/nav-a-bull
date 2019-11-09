@@ -32,6 +32,15 @@ function verify() {
     }
 }
 
+document.addEventListener('DOMContentLoaded', function() {
+    var vars = {};
+    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+        vars[key] = value;
+    });
+    if (vars.error == 'badcredentials')
+        document.getElementById('error-msg').innerText = 'Error: That username/password combination did not match our records. Please try again.';
+}); 
+
 function pageLoaded() {
     getTheme();
 }
