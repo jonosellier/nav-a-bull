@@ -104,6 +104,7 @@ app.post('/doSignUp', async(req, res) => {
     const question = "SELECT username, password FROM users WHERE username = $1";
     const value = [user];
     const output = await client.query(question, value);
+
     //This if statement only works if the username isn't taken.
     if (output.rowCount == 0) {
         const pw = req.body.supw;
@@ -129,12 +130,12 @@ app.post('/doSignUp', async(req, res) => {
             res.render('handlingLogin', { data: dataStr }, function(err, html) {
                 res.send(html);
             });
-        } else res.send("Bad");
+        } else res.redirect('/login');
 
         //Test stuff. This prints out all the rows.
         // const data = res.rows
         // data.forEach(row => console.log(row))
-    } else res.send("Bad");
+    } else res.redirect('/login');
 });
 
 //API to check for valid login
@@ -154,7 +155,7 @@ app.get('/places.json', (req, response) => {
 });
 
 /*
- * TODO: Use user ID as query param
+ * TODO: Use GUID as query param
  */
 app.get('/datafile.json', (req, response) => {
     console.log("id is ", req.query.id);
