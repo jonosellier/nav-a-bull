@@ -554,6 +554,13 @@ p {
     height: 48px;
 }
 
+#error-msg {
+    font-family: sans-serif;
+    font-size: 1em;
+    color: red;
+    margin-left: 0.5em;
+}
+
 input {
     color: var(--mdc-theme-on-primary);
 }
@@ -628,3 +635,4 @@ input {
     color: inherit;
     text-decoration: inherit;
 }
+
