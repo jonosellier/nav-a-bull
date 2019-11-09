@@ -117,8 +117,11 @@ function initMap() {
     calculateAndDisplayRoute(directionsRenderer, directionsService, markerArray, stepDisplay, map);
     // Listen to change events from the start and end lists.
     var onChangeHandler = function() {
-        calculateAndDisplayRoute(
-            directionsRenderer, directionsService, markerArray, stepDisplay, map);
+        if (document.getElementById('start').selectedIndex != 0
+            && document.getElementById('end').selectedIndex != 0) {
+            calculateAndDisplayRoute(
+                directionsRenderer, directionsService, markerArray, stepDisplay, map);
+        }
     };
     document.getElementById('start').addEventListener('change', onChangeHandler);
     document.getElementById('end').addEventListener('change', onChangeHandler);
@@ -154,6 +157,48 @@ function initMap() {
             }
         });
     }
+
+    function startShakeDetection() {
+        // set shake event
+        var step = 0;
+        var myShakeEvent = new Shake({
+            threshold: 10,
+            timeout: 10
+        });
+        myShakeEvent.start();
+        window.addEventListener('shake', shakeEventDidOccur, false);
+        
+        function shakeEventDidOccur() {
+            // when first shake is detected, start a timer and listen for other shakes
+            let s = new Timer(500, function(res, rej) {
+                window.removeEventListener('shake', shakeEventDidOccur, false);
+                window.addEventListener('shake', subsequentShakeEventDidOccur, false);
+            });
+            // when the timer ends, if the counted shakes exceeds a certain amount, do some action
+            s.catch(e => {
+                window.removeEventListener('shake', subsequentShakeEventDidOccur, false);
+                window.addEventListener('shake', shakeEventDidOccur, false);
+                if (step > 8) {
+                    if(confirm('Clear route?')) {
+                        document.getElementById('start').selectedIndex = 0;
+                        document.getElementById('end').selectedIndex = 0;
+                        for (var i=0; i < markerArray.length; i++) {
+                            markerArray[i].setMap(null);
+                            markerArray[i] = null;
+                        }
+                        markerArray.length = 0;
+                        directionsRenderer.setMap(null);
+                    }
+                }
+                        
+                step = 0;
+            });
+        }
+        // Count additional shakes after first shake occurs
+        const subsequentShakeEventDidOccur = () =>  step++;
+    }
+
+    startShakeDetection();
 }
 
 function recenterMap() {
@@ -189,8 +234,10 @@ function calculateAndDisplayRoute(directionsRenderer, directionsService, markerA
                 `<p>0 steps taken</p>
                 <p>Steps calculation here</p>` +
                 '<b>' + response.routes[0].warnings + '</b>';
-            directionsRenderer.setDirections(response);
+            
             showSteps(response, markerArray, stepDisplay, map);
+            directionsRenderer.setDirections(response);
+            directionsRenderer.setMap(map);
         } else {
             window.alert('Directions request failed due to ' + status);
         }
@@ -225,7 +272,6 @@ function pageLoaded() {
     showLoggedInContent();
     getTheme();
     showHideNav();
-    startShakeDetection();
 }
 
 async function populateLocations() {
@@ -254,7 +300,7 @@ function toggleRotation() {
     }
 }
 
-// timer class - set period of time to detect and count shakes
+// timer class - used for shake detection
 class Timer extends Promise {
     constructor (ms, callback) {
         let haveTimeout = typeof ms === "number" && typeof callback === "function";
@@ -263,40 +309,9 @@ class Timer extends Promise {
             init(resolve, reject);
             if (haveTimeout) {
                 setTimeout(() => {
-                    reject("Timed out");
+                    reject(`Timed out in ${ms}ms`);
                 }, ms);
             }
         });
-    }
-}
-
-function startShakeDetection() {
-    // set shake event
-    var step = 0;
-    var myShakeEvent = new Shake({
-        threshold: 10,
-        timeout: 10
-    });
-    myShakeEvent.start();
-    window.addEventListener('shake', shakeEventDidOccur, false);
-    
-    function shakeEventDidOccur() {
-        // when first shake is detected, start a timer and listen for other shakes
-        let s = new Timer(500, function(res, rej) {
-            window.removeEventListener('shake', shakeEventDidOccur, false);
-            window.addEventListener('shake', subsequentShakeEventDidOccur, false);
-        })
-        // when the timer ends, if the counted shakes exceeds a certain amount, do some action
-        s.catch(e => {
-            window.removeEventListener('shake', subsequentShakeEventDidOccur, false);
-            window.addEventListener('shake', shakeEventDidOccur, false);
-            if (step > 8)
-                alert(`Detected ${step} shakes`);
-            step = 0;
-        });
-    }
-
-    function subsequentShakeEventDidOccur() {
-        step++;
     }
 }
