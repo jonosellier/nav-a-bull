@@ -197,12 +197,10 @@ function initMap() {
                     if(confirm('Clear route?')) {
                         document.getElementById('start').selectedIndex = 0;
                         document.getElementById('end').selectedIndex = 0;
-                        for (var i=0; i < markerArray.length; i++) {
+                        for (var i = 0; i < markerArray.length; i++) {
                             markerArray[i].setMap(null);
-                            markerArray[i] = null;
                         }
-                        markerArray.length = 0;
-                        directionsRenderer.setMap(null);
+                        directionsRenderer.set('directions', null);
                     }
                 }
                         
