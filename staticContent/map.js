@@ -146,10 +146,43 @@ function recenterMap() {
     map.panTo(curPosCoords);
 }
 
+
 function setCurPos(pos) {
     curPosCoords = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
     curPosMarker.setPosition(curPosCoords);
 }
+
+function success(pos) {
+    curPosCoords = new google.maps.LatLng(28.059738, -82.411838)
+    if (document.getElementById("end").value == document.getElementById("end").value) {
+      console.log('Congratulations, you reached the target');
+      recenterMap();
+      navigator.geolocation.clearWatch(id);
+    }
+}
+
+function error(err)
+{
+    console.warn('ERROR(' + err.code + '): ' + err.message);
+}
+var options;
+options = {
+    enableHighAccuracy: false,
+    timeout: 5000,
+    maximumAge: 0
+};
+// function destinationReach()
+// {
+//     var options;
+//     options = {
+//         enableHighAccuracy: false,
+//         timeout: 5000,
+//         maximumAge: 0
+//     };
+//     //navigator.geolocation.watchPosition(success, error, options);
+// }
+navigator.geolocation.watchPosition(success, error, options);
+
 
 function calculateAndDisplayRoute(directionsRenderer, directionsService, markerArray, stepDisplay, map) {
     document.getElementById("directions-panel").innerHTML = ``;
